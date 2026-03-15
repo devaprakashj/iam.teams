@@ -1,612 +1,370 @@
 "use client";
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Zap, Star } from 'lucide-react';
+
+const profileData = {
+  name: "Devaprakash J",
+  initials: "DJ",
+  role: "AI/ML & Full Stack Developer",
+  location: "Chennai, Tamil Nadu, India",
+  email: "devaprakashofficial@gmail.com",
+  linkedin: "linkedin.com/in/devaprakashj",
+  portfolio: "iamfolio.in/devaprakash",
+  experience: [
+    { role: "AI Software Developer", company: "Upwork", period: "2024–Present", bullet: "Built ML models for 15+ international clients" },
+    { role: "Full Stack Developer", company: "Fiverr", period: "2021–Present", bullet: "50+ web apps · 4.9★ rating over 4 years" },
+    { role: "AI Consultant", company: "Amazon MTurk", period: "2025–Present", bullet: "AI consulting & model evaluation" },
+    { role: "ML Intern", company: "Codec Technologies", period: "2025", bullet: "Built ML pipelines using Python & Pandas" }
+  ],
+  skills_tech: ["Python", "Machine Learning", "React", "Node.js", "Firebase", "Pandas"],
+  skills_tools: ["Tableau", "Git", "Jupyter", "yfinance API"],
+  education: { degree: "B.Tech CSE (AI & ML)", institution: "RIT", period: "2024–2028" },
+  certifications: ["Tableau Desktop Certified", "Accenture UK Simulation", "Web Apps Hacking"],
+  projects: [
+    { name: "Stock Market Predictor", tech: "Python · yfinance · ML", desc: "ML model predicting stock movements" },
+    { name: "TechSpark Website", tech: "Next.js · Firebase", desc: "Event management for college club" }
+  ]
+};
+
 const templates = [
-  { name: 'Olesia Pro', color: 'bg-blue-600', layout: 'modern-blue', tag: 'Best Seller' },
-  { name: 'John Carter', color: 'bg-emerald-500', layout: 'creative-green', tag: 'Creative' },
-  { name: 'Steve Jobs', color: 'bg-[#1e293b]', layout: 'corporate-navy', tag: 'Executive' },
-  { name: 'Alex Laurens', color: 'bg-black', layout: 'clean-black' },
-  { name: 'Aparna Das', color: 'bg-yellow-400', layout: 'bold-yellow', tag: 'New' },
-  { name: 'Hellen Pro', color: 'bg-pink-500', layout: 'elegant-centered' },
-  { name: 'Tech Core', color: 'bg-slate-900', layout: 'dark-grid' },
-  { name: 'Minimalist', color: 'bg-slate-100', layout: 'standard' },
+  { id: 'classic-pro', name: "Classic Pro", badge: "BEST SELLER", badgeColor: "bg-[#6EE7B7] text-black", score: 98 },
+  { id: 'creative-bold', name: "Creative Bold", badge: "CREATIVE", badgeColor: "bg-[#FF6B35] text-white", score: 94 },
+  { id: 'executive-dark', name: "Executive Dark", badge: "EXECUTIVE", badgeColor: "bg-[#60A5FA] text-black", score: 96 },
+  { id: 'developer-dark', name: "Developer Dark", badge: "DEVELOPER", badgeColor: "bg-[#6C3CE1] text-white", score: 91 },
+  { id: 'minimal-clean', name: "Minimal Clean", badge: "MINIMAL", badgeColor: "bg-[#64748B] text-white", score: 99 },
+  { id: 'indian-corporate', name: "Indian Corporate", badge: "CORPORATE", badgeColor: "bg-[#F87171] text-white", score: 97 },
+  { id: 'purple-sidebar', name: "Purple Sidebar", badge: "MODERN", badgeColor: "bg-[#6C3CE1] text-white", score: 93 },
+  { id: 'teal-creative', name: "Teal Creative", badge: "CREATIVE", badgeColor: "bg-[#2DD4BF] text-white", score: 92 },
 ];
 
 export const TemplateGallery = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
       const { scrollLeft, clientWidth } = scrollRef.current;
-      const scrollTo = direction === 'left' ? scrollLeft - clientWidth / 2 : scrollLeft + clientWidth / 2;
+      const scrollTo = direction === 'left' ? scrollLeft - clientWidth : scrollLeft + clientWidth;
       scrollRef.current.scrollTo({ left: scrollTo, behavior: 'smooth' });
     }
   };
 
-  const renderLayout = (type: string, color: string) => {
-    const sectionHeading = "text-[6px] font-black text-dark uppercase tracking-widest border-b border-gray-100 pb-1 mb-2";
-    const bodyText = "text-[4.5px] text-gray-text leading-tight";
-    const boldText = "text-[4.8px] font-bold text-dark";
+  const handleScroll = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, clientWidth } = scrollRef.current;
+      setActiveIndex(Math.round(scrollLeft / clientWidth));
+    }
+  };
 
-    const Avatar = ({ initials, className = "" }: { initials: string, className?: string }) => (
-      <div className={`w-10 h-10 rounded-full flex items-center justify-center text-[10px] font-black shadow-sm ${className}`}>
-        {initials}
-      </div>
-    );
+  const renderLayout = (id: string) => {
+    const { name, initials, role, location, email, experience, education, skills_tech, certifications, projects } = profileData;
 
-    const StarRating = ({ rating }: { rating: number }) => (
-      <div className="flex gap-0.5 mt-0.5">
-        {[1, 2, 3, 4, 5].map(i => (
-          <div key={i} className={`w-1 h-1 rounded-full ${i <= rating ? 'bg-primary' : 'bg-gray-200'}`}></div>
-        ))}
-      </div>
-    );
-
-    const ProgressBar = ({ progress, color = "bg-primary" }: { progress: number, color?: string }) => (
-      <div className="w-full h-1 bg-gray-100 rounded-full overflow-hidden mt-1">
-        <div className={`h-full ${color}`} style={{ width: `${progress}%` }}></div>
-      </div>
-    );
-
-    switch (type) {
-      case 'modern-blue':
+    switch (id) {
+      case 'classic-pro':
         return (
-          <div className="h-full flex flex-col bg-white">
-            <div className={`h-1.5 w-full ${color}`}></div>
-            <div className="p-5 flex-1 space-y-4 overflow-hidden">
-              <div className="flex justify-between items-start">
-                <div className="space-y-1">
-                  <h4 className="text-[11px] font-black text-blue-600 tracking-tighter uppercase leading-none">Priya Sharma</h4>
-                  <p className="text-[5px] text-gray-400 font-bold tracking-widest uppercase">Senior Product Designer · 6+ Years</p>
+          <div className="h-full flex bg-white text-[7px]">
+            <aside className="w-[35%] bg-[#1F4E79] p-4 text-white flex flex-col items-center">
+              <div className="w-10 h-10 rounded-full bg-white text-[#1F4E79] flex items-center justify-center font-bold text-lg mb-2">{initials}</div>
+              <p className="font-black text-[9px] text-center">{name.toUpperCase()}</p>
+              <p className="text-[6px] text-[#93C5FD] mb-4 text-center">AI/ML Developer</p>
+              <div className="w-full h-[0.5px] bg-white/20 mb-4" />
+              <p className="font-bold text-[6px] w-full mb-1 uppercase">Contact</p>
+              <div className="w-full space-y-1 opacity-80 mb-4">
+                <p>📍 {location}</p>
+                <p className="text-[5px]">✉ {email}</p>
+              </div>
+              <p className="font-bold text-[6px] w-full mb-1 uppercase">Skills</p>
+              <div className="flex flex-wrap gap-1">
+                {['Python', 'React', 'ML', 'Node.js'].map(s => (
+                  <span key={s} className="px-1.5 py-0.5 bg-white/10 rounded">{s}</span>
+                ))}
+              </div>
+            </aside>
+            <main className="w-[65%] p-4 text-black text-left">
+              <p className="font-black text-[#1F4E79] border-b border-[#1F4E79] mb-2 uppercase">Experience</p>
+              {experience.slice(0, 2).map((exp, i) => (
+                <div key={i} className="mb-2">
+                  <p className="font-bold">{exp.role} — {exp.company}</p>
+                  <p className="italic text-[6px]">{exp.period}</p>
+                  <p className="text-gray-500 leading-tight">"{exp.bullet}"</p>
                 </div>
-                <Avatar initials="PS" className="bg-blue-50 text-blue-600 border-2 border-blue-100" />
+              ))}
+              <p className="font-black text-[#1F4E79] border-b border-[#1F4E79] mb-2 mt-4 uppercase">Education</p>
+              <p className="font-bold">{education.degree}</p>
+              <p className="opacity-70">{education.institution}</p>
+            </main>
+          </div>
+        );
+      case 'creative-bold':
+        return (
+          <div className="h-full bg-white text-[7px]">
+            <header className="bg-[#10B981] p-4 text-white flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-white text-[#10B981] flex items-center justify-center font-bold text-base">{initials}</div>
+                <div className="text-left">
+                  <p className="font-black text-[10px]">{name}</p>
+                  <p className="text-[6px] opacity-80 uppercase tracking-tighter">AI/ML & FULL STACK DEVELOPER</p>
+                </div>
+              </div>
+            </header>
+            <div className="p-4 grid grid-cols-2 gap-4 text-left">
+              <div className="space-y-4">
+                <p className="font-black text-[#10B981] uppercase">Arsenal</p>
+                <div className="flex flex-wrap gap-1">
+                  {skills_tech.slice(0, 4).map(s => <span key={s} className="px-2 py-0.5 bg-[#10B981] text-white rounded-full text-[5px] font-bold">{s}</span>)}
+                </div>
+              </div>
+              <div className="space-y-4">
+                <p className="font-black text-[#10B981] uppercase">Projects</p>
+                {projects.slice(0, 2).map((p, i) => (
+                  <div key={i} className="p-1.5 border border-[#10B981] rounded-lg">
+                    <p className="font-black leading-tight">{p.name}</p>
+                    <p className="text-[5px] text-[#10B981] truncate">{p.tech}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="px-4 mt-auto pb-4 text-left">
+              <p className="font-black text-[#10B981] mb-1 uppercase">Experience</p>
+              <div className="space-y-1 text-gray-500 font-bold">
+                {experience.slice(0, 2).map((exp, i) => <p key={i}>{exp.company} · {exp.role}</p>)}
+              </div>
+            </div>
+          </div>
+        );
+      case 'executive-dark':
+        return (
+          <div className="h-full bg-white text-[7px]">
+            <header className="bg-[#0F172A] p-4 text-white text-left">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-[#6C3CE1] flex items-center justify-center font-bold text-base shadow-lg">{initials}</div>
+                <div>
+                  <p className="font-black text-[10px] tracking-widest leading-none">{name.toUpperCase()}</p>
+                  <p className="text-[6px] text-[#60A5FA] mt-1 font-mono">ENGR // AI_ML</p>
+                </div>
+              </div>
+            </header>
+            <div className="p-4 grid grid-cols-2 gap-6 text-left">
+              <div className="space-y-4">
+                <p className="font-black text-[#0F172A] border-l-2 border-[#60A5FA] pl-2 uppercase tracking-widest">Experience</p>
+                {experience.slice(0, 2).map((exp, i) => (
+                  <div key={i} className="relative">
+                    <p className="font-black">{exp.role}</p>
+                    <p className="text-[#60A5FA] font-bold mb-1">{exp.company}</p>
+                    <p className="text-gray-400 leading-tight">"{exp.bullet}"</p>
+                  </div>
+                ))}
+              </div>
+              <div className="space-y-4">
+                <p className="font-black text-[#0F172A] border-l-2 border-[#60A5FA] pl-2 uppercase tracking-widest">Stats</p>
+                <ul className="space-y-2 font-bold text-[#0F172A] opacity-70">
+                  <li>• 50+ Web Apps</li>
+                  <li>• 15+ AI Clients</li>
+                  <li>• 4.9★ Rating</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        );
+      case 'developer-dark':
+        return (
+          <div className="h-full bg-black text-[7px] text-left">
+            <header className="p-4 border-b border-[#6EE7B7]/20 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 border border-[#6EE7B7] rounded-full flex items-center justify-center font-black text-[#6EE7B7]">{initials}</div>
+                <div>
+                  <p className="text-white font-black text-[10px]">{name}</p>
+                  <p className="text-[#6EE7B7] font-mono leading-none">DEV_GRID // AI_ML</p>
+                </div>
+              </div>
+            </header>
+            <div className="p-4 space-y-4 font-mono">
+              <div>
+                <p className="text-[#6EE7B7] mb-2 uppercase tracking-widest text-[6px] opacity-60 font-black">// SKILLS</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {skills_tech.slice(0, 5).map(s => <span key={s} className="px-2 py-0.5 border border-[#6EE7B7]/40 text-[#6EE7B7] rounded text-[5px] uppercase">{s}</span>)}
+                </div>
               </div>
               <div className="space-y-3">
-                 <div>
-                    <p className={sectionHeading}>Executive Profile</p>
-                    <p className={bodyText}>Design leader specializing in enterprise SaaS ecosystems. Expert in converging business logic with user empathy to build interfaces that scale to millions of concurrent users. Proven track record in reducing churn by 25%.</p>
-                 </div>
-                 <div>
-                    <p className={sectionHeading}>Core Experience</p>
-                    <div className="space-y-2.5">
-                       <div>
-                          <p className={boldText}>Lead Product Designer · Zoho Corporation</p>
-                          <p className="text-[3.5px] text-gray-400 font-bold">Jan 2022 – Present · Chennai, India</p>
-                          <p className={bodyText}>Architected the Apollo Design System which synchronized UI patterns across 45+ enterprise apps, reducing front-end debt by $200k/year and increasing dev velocity by 40%.</p>
-                       </div>
-                       <div>
-                          <p className={boldText}>UX Designer · Microsoft India (Contract)</p>
-                          <p className="text-[3.5px] text-gray-400 font-bold">June 2019 – Dec 2021 · Bangalore</p>
-                          <p className={bodyText}>Conducted high-fidelity usability audits for the Azure Billing Dashboard, identifying critical friction points for enterprise administrators and improving NPS by 12 points.</p>
-                       </div>
-                    </div>
-                 </div>
-                 <div className="grid grid-cols-2 gap-4">
-                    <div>
-                        <p className={sectionHeading}>Strategic Skills</p>
-                        <div className="space-y-2">
-                           {['Product Strategy', 'Systems Thinking', 'User Research'].map(s => (
-                             <div key={s}>
-                                <p className="text-[4px] font-bold">{s}</p>
-                                <ProgressBar progress={s === 'Product Strategy' ? 95 : 85} color="bg-blue-500" />
-                             </div>
-                           ))}
-                        </div>
-                    </div>
-                    <div>
-                        <p className={sectionHeading}>Certifications</p>
-                        <ul className="list-disc list-inside text-[3.8px] text-gray-500 space-y-1">
-                           <li>HCI Certified Professional</li>
-                           <li>Google UX Design Expert</li>
-                           <li>Advanced Design Ops 2.0</li>
-                        </ul>
-                    </div>
-                 </div>
+                <p className="text-[#6EE7B7] uppercase tracking-widest text-[6px] opacity-60 font-black">// EXP</p>
+                {experience.slice(0, 2).map((exp, i) => (
+                  <div key={i} className="bg-[#1A1A2E] p-3 border border-[#6EE7B7]/10 rounded-lg">
+                    <p className="text-[#6EE7B7] font-black">{exp.role}</p>
+                    <p className="text-[#64748B] text-[6px] mb-1">{exp.company}</p>
+                    <p className="text-white opacity-60 leading-relaxed font-sans line-clamp-2">{exp.bullet}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         );
-      case 'creative-green':
+      case 'minimal-clean':
         return (
-          <div className="h-full flex bg-white overflow-hidden">
-            <div className="w-[38%] bg-slate-50 p-4 space-y-5 border-r border-gray-100">
-               <Avatar initials="PS" className="bg-emerald-500 text-white w-12 h-12 text-[12px] mx-auto rounded-lg shadow-emerald-200 shadow-lg" />
-               <div className="space-y-4">
-                  <div>
-                    <p className="text-[5.5px] font-black text-emerald-600 uppercase tracking-widest mb-1.5 border-b border-emerald-100 pb-0.5">Contact Meta</p>
-                    <p className="text-[4px] font-bold text-dark">priya@iamfolio.in</p>
-                    <p className="text-[4px] font-bold text-dark">+91 98450 12345</p>
-                    <p className="text-[4px] text-gray-400">Bangalore, IN</p>
-                  </div>
-                  <div>
-                    <p className="text-[5.5px] font-black text-emerald-600 uppercase tracking-widest mb-1.5 border-b border-emerald-100 pb-0.5">Core Arsenal</p>
-                    <div className="space-y-1.5">
-                       {['Interface Design', 'Prototyping', 'Motion Graphics', 'User Testing'].map(s => (
-                         <div key={s}>
-                            <p className="text-[3.8px] font-bold text-dark">{s}</p>
-                            <StarRating rating={s === 'User Testing' ? 4 : 5} />
-                         </div>
-                       ))}
-                    </div>
-                  </div>
-                  <div>
-                    <p className="text-[5.5px] font-black text-emerald-600 uppercase tracking-widest mb-1.5 border-b border-emerald-100 pb-0.5">Languages</p>
-                    <p className="text-[4px] font-bold text-dark">English (Native), Tamil (Fluent), Hindi</p>
-                  </div>
-               </div>
-            </div>
-            <div className="flex-1 p-6 space-y-5">
-               <div className="border-l-4 border-emerald-500 pl-3">
-                  <h4 className="text-[12px] font-black text-dark tracking-tight leading-none uppercase">Priya Sharma</h4>
-                  <p className="text-[5px] text-emerald-600 font-black uppercase tracking-widest mt-1">Growth Designer & Strategist</p>
-               </div>
-               <div className="space-y-4">
-                  <div>
-                    <p className={sectionHeading}>Professional Narrative</p>
-                    <div className="space-y-3">
-                       <div>
-                          <p className={boldText}>Sr. Experience Lead · Razorpay</p>
-                          <p className="text-[3.5px] text-gray-400 font-bold">2021 – Present</p>
-                          <p className={bodyText}>Spearheaded the redesign of the merchant checkout flow used by 12M+ businesses. Increased conversion rates by 8% through behavioral psychology optimizations.</p>
-                       </div>
-                       <div>
-                          <p className={boldText}>Product Designer · Freshworks</p>
-                          <p className="text-[3.5px] text-gray-400 font-bold">2018 – 2021</p>
-                          <p className={bodyText}>Redesigned the core CRM ticketing interface, reducing average time-to-close by 18%. Collaborated with 50+ engineers globally.</p>
-                       </div>
-                    </div>
-                  </div>
-                  <div>
-                    <p className={sectionHeading}>Key Projects</p>
-                    <div className="space-y-2">
-                       <p className={bodyText}><span className="font-bold text-dark">Project Nebula:</span> A high-concurrency real-time dashboard for 2M+ active fintech users.</p>
-                       <p className={bodyText}><span className="font-bold text-dark">Apollo V3:</span> Comprehensive design system implementation for cross-platform apps.</p>
-                    </div>
-                  </div>
-                  <div>
-                    <p className={sectionHeading}>Academic Foundation</p>
-                    <p className={boldText}>B.Des in Communication Design</p>
-                    <p className={bodyText}>National Institute of Design (NID) · GPA 9.2/10</p>
-                  </div>
-               </div>
-            </div>
-          </div>
-        );
-      case 'corporate-navy':
-        return (
-          <div className="h-full flex flex-col bg-white overflow-hidden">
-            <div className={`h-16 flex items-center px-6 gap-4 ${color} shadow-lg shadow-slate-200`}>
-               <Avatar initials="PS" className="bg-white/10 text-white w-10 h-10 border border-white/20 font-black italic shadow-inner" />
-               <div>
-                  <h4 className="text-[11px] font-black text-white tracking-widest uppercase mb-0.5">PRIYA SHARMA</h4>
-                  <p className="text-[4.8px] text-blue-200 font-bold uppercase tracking-[0.2em]">Principal Experience Designer</p>
-               </div>
-            </div>
-            <div className="p-6 flex-1 grid grid-cols-12 gap-8">
-               <div className="col-span-8 space-y-5">
-                  <div>
-                     <p className={sectionHeading}>Professional Brief</p>
-                     <p className={bodyText}>Senior Design Strategist with a decade of experience in building enterprise-grade software. Specialist in human-centered AI, complex data visualization, and design-to-development handoff optimization.</p>
-                  </div>
-                  <div>
-                     <p className={sectionHeading}>Notable Impact</p>
-                     <div className="space-y-3.5">
-                        {[1, 2, 3].map(i => (
-                          <div key={i}>
-                             <p className={boldText}>{i === 1 ? 'Design Partner · Google Cloud' : i === 2 ? 'Sr. UX Architect · IBM Watson' : 'UX Lead · Zoho'}</p>
-                             <p className="text-[3.5px] text-gray-400 uppercase font-black mb-1">{i === 1 ? '2022-Pres' : i === 2 ? '2019-2022' : '2017-2019'}</p>
-                             <p className={bodyText}>{i === 1 ? 'Leading design for cloud database infrastructure used by Fortune 500 companies.' : i === 2 ? 'Designed the interaction model for AI-powered oncology diagnosis tools.' : 'Architected the core UI of Zoho CRM, impacting 10M+ global users.'}</p>
-                          </div>
-                        ))}
-                     </div>
-                  </div>
-                  <div>
-                     <p className={sectionHeading}>Key Achievements</p>
-                     <ul className="list-disc list-inside text-[4.2px] text-gray-500 space-y-1">
-                        <li>Won Red Dot Design Award 2023 for Project "Aura".</li>
-                        <li>Reduced front-end dev time by 35% through standardized tokens.</li>
-                        <li>Mentored 15+ junior designers into mid-level positions.</li>
-                     </ul>
-                  </div>
-               </div>
-               <div className="col-span-4 space-y-5 border-l border-gray-50 pl-6">
-                  <div>
-                     <p className={sectionHeading}>Technical Arsenal</p>
-                     <div className="space-y-2">
-                        {['Strategy', 'Design Ops', 'Systems Archetype', 'Data viz', 'AI/ML UX'].map(s => (
-                          <div key={s} className="bg-slate-50 p-2 rounded-sm border-l-2 border-[#1e293b]">
-                             <p className="text-[4px] font-black text-dark">{s}</p>
-                          </div>
-                        ))}
-                     </div>
-                  </div>
-                  <div>
-                     <p className={sectionHeading}>Recognition</p>
-                     <div className="space-y-2">
-                        <div className="p-2 bg-blue-50/50 rounded inline-block w-full">
-                           <p className="text-[4px] font-black text-blue-900 leading-tight">Interaction Designer of the Year</p>
-                           <p className="text-[3.5px] text-blue-700">DesignX Magazine · 2022</p>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-          </div>
-        );
-      case 'bold-yellow':
-        return (
-          <div className="h-full border-[6px] border-yellow-400 bg-white p-6 flex flex-col overflow-hidden">
-             <div className="flex gap-6 mb-7 border-b-2 border-slate-100 pb-5">
-                <Avatar initials="PS" className="bg-yellow-100 text-yellow-600 rounded-2xl w-14 h-14 text-[14px] font-black shadow-inner" />
-                <div className="flex-1 flex flex-col justify-center">
-                   <h4 className="text-[14px] font-black text-dark leading-none tracking-tighter">PRIYA SHARMA</h4>
-                   <p className="text-[5.5px] text-yellow-600 font-black uppercase mt-1 tracking-widest">Interface Architect & Product Lead</p>
-                </div>
-             </div>
-             <div className="flex-1 grid grid-cols-2 gap-8">
-                <div className="space-y-6">
-                   <div>
-                      <p className="text-[6px] font-black text-dark uppercase bg-yellow-400 px-2 py-0.5 w-max mb-3 tracking-[0.1em]">Core Objective</p>
-                      <p className={bodyText}>To leverage deep expertise in user psychology and interface engineering to build industry-leading experiences for next-generation AI platforms. Passionate about creating seamless design-to-code bridges.</p>
-                   </div>
-                   <div>
-                      <p className="text-[6px] font-black text-dark uppercase bg-yellow-400 px-2 py-0.5 w-max mb-3 tracking-[0.1em]">Key Competencies</p>
-                      <div className="grid grid-cols-2 gap-y-2.5">
-                         {['Sketch', 'Gen-AI', 'SQL', 'Git', 'CSS/JS', 'Spline', 'Three.js'].map(s => <p key={s} className="text-[4px] font-black text-dark">✔ {s}</p>)}
-                      </div>
-                   </div>
-                   <div>
-                      <p className="text-[6px] font-black text-dark uppercase bg-yellow-400 px-2 py-0.5 w-max mb-3 tracking-[0.1em]">Awards</p>
-                      <div className="space-y-1.5 text-[4px] text-gray-500 font-bold">
-                         <p>🏆 Behance Interaction Star (2023)</p>
-                         <p>🏆 App of the Day · Apple (2022)</p>
-                         <p>🏆 UX Innovator · TechWeek (2021)</p>
-                      </div>
-                   </div>
-                </div>
-                <div className="space-y-6">
-                   <div>
-                      <p className="text-[6px] font-black text-dark uppercase bg-yellow-400 px-2 py-0.5 w-max mb-3 tracking-[0.1em]">Work Journey</p>
-                      <div className="space-y-4">
-                         <div>
-                            <p className={boldText}>Sr. Lead Architect</p>
-                            <p className="text-[4px] font-bold text-yellow-600">Zoho · Jan 2022 - Present</p>
-                            <p className={bodyText}>Shipped the Global Search tool used by 45M+ users. Developed a custom tokenizer for design systems that reduced handoff errors by 90%.</p>
-                         </div>
-                         <div>
-                            <p className={boldText}>Full-Stack Designer</p>
-                            <p className="text-[4px] font-bold text-yellow-600">FreeCharge · 2019 - 2021</p>
-                            <p className={bodyText}>Re-engineered the digital payment flow, managing technical debt and improving transaction success rates by 15%.</p>
-                         </div>
-                      </div>
-                   </div>
-                </div>
-             </div>
-          </div>
-        );
-      case 'clean-black':
-        return (
-          <div className="h-full flex bg-white overflow-hidden">
-            <div className="w-[30%] bg-black p-5 text-white flex flex-col space-y-6">
-               <div className="w-12 h-12 border-2 border-white rounded-full flex items-center justify-center font-black text-[14px] mx-auto shadow-xl">PS</div>
-               <div className="space-y-5">
-                  <div>
-                    <p className="text-[5.5px] font-black text-gray-500 uppercase tracking-widest mb-2 border-b border-white/10 pb-1">Identification</p>
-                    <p className="text-[4px] font-bold text-gray-200">priya@folio.in</p>
-                    <p className="text-[4px] text-gray-400">Bangalore, India</p>
-                  </div>
-                  <div>
-                    <p className="text-[5.5px] font-black text-gray-500 uppercase tracking-widest mb-2 border-b border-white/10 pb-1">Expertise</p>
-                    <div className="space-y-1.5">
-                       {['React/NextJS', 'Swift/iOS', 'Framer Motion', 'WebGL/Canvas'].map(s => <p key={s} className="text-[4px] font-medium text-gray-300">✦ {s}</p>)}
-                    </div>
-                  </div>
-                  <div>
-                    <p className="text-[5.5px] font-black text-gray-500 uppercase tracking-widest mb-2 border-b border-white/10 pb-1">Public Repo</p>
-                    <p className="text-[3.5px] font-mono text-gray-500">github.com/priya_ux</p>
-                  </div>
-               </div>
-               <div className="mt-auto h-4 w-full bg-white/5 rounded-full"></div>
-            </div>
-            <div className="flex-1 p-8 space-y-6">
-               <div className="space-y-1.5">
-                  <h4 className="text-[15px] font-black text-dark tracking-tighter leading-none">Priya Sharma</h4>
-                  <p className="text-[5.5px] text-gray-400 font-bold uppercase tracking-[0.3em]">Senior Interface Engineer</p>
-               </div>
-               <div className="space-y-5">
-                  <div>
-                     <p className={sectionHeading}>Career Narrative</p>
-                     <p className={bodyText}>Architecting high-performance digital products for global scale. My approach blends engineering precision with aesthetic mastery. I specialize in building zero-latency user interfaces in high-concurrency environments.</p>
-                  </div>
-                  <div>
-                     <p className={sectionHeading}>Impact History</p>
-                     <div className="space-y-4">
-                        {[1, 2].map(i => (
-                          <div key={i} className="flex gap-4">
-                             <p className="text-[4px] font-bold text-gray-300">{i === 1 ? '2023' : '2021'}</p>
-                             <div>
-                                <p className={boldText}>{i === 1 ? 'Lead Engineer @ MicroFlow Fintech' : 'UX Engineer @ Swiggy'}</p>
-                                <p className={bodyText}>{i === 1 ? 'Optimized the payment gateway UI leading to a 22% reduction in bounce rate and processing $2M+ daily.' : 'Engineered the "Track Order" animation system used by 20M+ users across India.'}</p>
-                             </div>
-                          </div>
-                        ))}
-                     </div>
-                  </div>
-                  <div>
-                     <p className={sectionHeading}>Open Source</p>
-                     <p className={bodyText}><span className="font-bold text-dark">Lumina-UI:</span> Contributed core animations used by 5k+ developers globally.</p>
-                  </div>
-               </div>
-            </div>
-          </div>
-        );
-      case 'elegant-centered':
-        return (
-          <div className="h-full bg-white p-6 flex flex-col text-center overflow-hidden">
-             <div className="border-b border-gray-100 pb-5 mb-5">
-                <Avatar initials="PS" className="bg-pink-50 text-pink-600 mx-auto mb-3 w-12 h-12" />
-                <h4 className="text-[13px] font-serif font-bold text-dark italic">Priya Sharma</h4>
-                <p className="text-[5px] text-gray-400 italic tracking-widest">Visual Experience Designer · Bangalore</p>
-             </div>
-             <div className="flex-1 space-y-5">
-                <div>
-                   <p className="text-[5.5px] font-bold text-pink-600 uppercase tracking-widest mb-2 italic">Design Philosophy</p>
-                   <p className="text-[4.5px] text-gray-500 leading-relaxed italic px-6">"Design is not just what it looks like and feels like. Design is how it works." Focusing on minimalism and human centeredness in the fashion-tech space.</p>
-                </div>
-                <div>
-                   <p className="text-[5.5px] font-bold text-pink-600 uppercase tracking-widest mb-2 italic">Industry Journey</p>
-                   <div className="space-y-4">
-                      <div>
-                         <p className={boldText}>Lead Brand Designer · Nykaa Luxe</p>
-                         <p className="text-[3.5px] text-gray-300">2021 – Present</p>
-                         <p className={bodyText}>Refined the visual identity for the 'Summer Glow' campaign, increasing social engagement by 45% and resulting in a 12% uptick in Q3 revenue.</p>
-                      </div>
-                      <div>
-                         <p className={boldText}>Visual Designer · Myntra Fashion</p>
-                         <p className="text-[3.5px] text-gray-300">2018 – 2021</p>
-                         <p className={bodyText}>Conceptualized and delivered high-impact UI for the 'End of Reason Sale', managing asset pipelines reaching 50M+ shoppers.</p>
-                      </div>
-                   </div>
-                </div>
-                <div className="grid grid-cols-2 gap-4 pt-2">
-                   <div className="text-right border-r border-gray-100 pr-4">
-                      <p className="text-[5px] font-bold text-pink-600 uppercase mb-1">Passions</p>
-                      <p className="text-[4px] text-gray-500">Photography, Type Design</p>
-                   </div>
-                   <div className="text-left pl-4">
-                      <p className="text-[5px] font-bold text-pink-600 uppercase mb-1">Education</p>
-                      <p className="text-[4px] text-gray-500">M.Des, IDC School of Design</p>
-                   </div>
-                </div>
-             </div>
-          </div>
-        );
-      case 'dark-grid':
-        return (
-          <div className="h-full bg-slate-900 p-6 flex flex-col overflow-hidden">
-             <div className="flex justify-between items-start mb-8 border-b border-slate-800 pb-5">
-                <div>
-                   <h4 className="text-[14px] font-mono font-black text-white tracking-widest leading-none">PRIYA.SHARMA</h4>
-                   <p className="text-[5px] font-mono text-emerald-400 mt-2 uppercase tracking-widest">&gt;&gt; System Architect v2.0.4</p>
-                </div>
-                <div className="text-right font-mono text-[4px] text-slate-500">
-                   <p>LAT: 12.9716 N</p>
-                   <p>LNG: 77.5946 E</p>
-                </div>
-             </div>
-             <div className="flex-1 space-y-5">
-                <div className="bg-slate-800/50 border border-slate-700 p-3 rounded">
-                   <p className="text-[5px] font-mono text-white mb-2 uppercase border-b border-slate-700 pb-1">Current Operations</p>
-                   <div className="space-y-3">
-                      <div className="flex gap-4">
-                         <span className="text-[4px] font-mono text-emerald-500">[2022-Pres]</span>
-                         <div>
-                            <p className="text-[4px] font-mono text-white font-bold">Principal Engineer @ Freshworks</p>
-                            <p className="text-[3.8px] font-mono text-slate-400">Scaling infra for 1M+ concurrent socket connections. Reduced latency by 150ms through Rust optimizations.</p>
-                         </div>
-                      </div>
-                      <div className="flex gap-4">
-                         <span className="text-[4px] font-mono text-slate-500">[2019-2022]</span>
-                         <div>
-                            <p className="text-[4px] font-mono text-white font-bold">Cloud Architect @ AWS India</p>
-                            <p className="text-[3.8px] font-mono text-slate-400">Managed multi-region deployments for top fintech startups. 99.999% uptime maintained.</p>
-                         </div>
-                      </div>
-                   </div>
-                </div>
-                <div className="grid grid-cols-3 gap-3">
-                   {['Kubernetes', 'GoLang', 'Rust', 'Kafka', 'Redis', 'Docker'].map(s => (
-                     <div key={s} className="bg-slate-800 border border-slate-700 p-1.5 text-center rounded">
-                        <p className="text-[4px] font-mono text-emerald-400">{s}</p>
-                     </div>
+          <div className="h-full bg-white text-[7px] p-6 text-black border-[3px] border-black m-2 text-left">
+            <header className="border-b-[3px] border-black pb-3 mb-4">
+              <p className="font-black text-lg tracking-[0.2em]">{name.toUpperCase()}</p>
+              <p className="text-gray-400 font-bold uppercase tracking-widest leading-none mt-1">AI/ML & FULL STACK DEVELOPER</p>
+            </header>
+            <main className="space-y-4">
+              <div>
+                <p className="font-black text-[8px] border-b-[2px] border-black mb-2 uppercase">Experience</p>
+                <div className="space-y-2">
+                   {experience.slice(0, 3).map((exp, i) => (
+                     <p key={i} className="flex justify-between font-bold"><span>{exp.company}</span> <span>{exp.period}</span></p>
                    ))}
                 </div>
-                <div className="bg-slate-800/30 p-3 border-l-2 border-emerald-500">
-                   <p className="text-[5px] font-mono text-white uppercase italic">Certification_Log</p>
-                   <p className="text-[3.8px] font-mono text-slate-400 mt-1">CKA (Certified Kubernetes Admin) · AWS Solution Architect Pro · HashiCorp TerraForm Associate</p>
-                </div>
-             </div>
+              </div>
+              <div>
+                <p className="font-black text-[8px] border-b-[2px] border-black mb-2 uppercase">Capabilities</p>
+                <p className="leading-relaxed opacity-70 font-bold">{skills_tech.join(', ')}</p>
+              </div>
+            </main>
           </div>
         );
-      case 'standard':
+      case 'indian-corporate':
         return (
-          <div className="h-full bg-slate-50 p-6 flex flex-col overflow-hidden">
-             <div className="bg-white p-6 shadow-sm border border-slate-200">
-                <div className="flex justify-between items-start mb-6">
-                   <h4 className="text-[12px] font-bold text-slate-900 uppercase tracking-widest border-l-4 border-slate-900 pl-3">Priya Sharma</h4>
-                   <p className="text-[4px] font-bold text-slate-400 uppercase">Product Analyst</p>
-                </div>
-                <div className="space-y-5">
-                   <div>
-                      <p className={sectionHeading}>Experience Summary</p>
-                      <div className="space-y-4">
-                         <div>
-                            <p className={boldText}>Lead Strategist · Zoho Corp</p>
-                            <p className="text-[3.5px] text-slate-400 mb-1">2022 - Present</p>
-                            <p className={bodyText}>Analyzed market trends for the Zoho Workplace suite, leading to a 20% increase in enterprise seat adoption across EMEA regions.</p>
-                         </div>
-                         <div>
-                            <p className={boldText}>Junior Analyst · Oracle</p>
-                            <p className="text-[3.5px] text-slate-400 mb-1">2019 - 2022</p>
-                            <p className={bodyText}>Optimized SQL queries for internal reporting, reducing dashboard load times by 60% for the global sales team.</p>
-                         </div>
-                      </div>
+          <div className="h-full bg-white text-[7px] text-left">
+            <header className="bg-[#003366] p-4 text-white text-center">
+              <p className="font-black text-[10px] tracking-widest">{name.toUpperCase()}</p>
+              <p className="text-[#93C5FD] leading-tight font-bold">AI/ML & FULL STACK DEVELOPER</p>
+              <p className="text-[5px] opacity-60 mt-1 uppercase tracking-widest">Chennai | {email}</p>
+            </header>
+            <div className="h-[3px] bg-[#FF6600] w-full" />
+            <div className="p-4 space-y-4">
+              <div>
+                <p className="font-black text-[#003366] border-b border-[#003366] mb-1 uppercase tracking-tighter italic">Professional Summary</p>
+                <p className="text-gray-600 leading-relaxed italic font-bold">Passionate developer with 4+ years experience building scalable solutions.</p>
+              </div>
+              <div className="space-y-3">
+                <p className="font-black text-[#003366] border-b border-[#003366] mb-2 uppercase tracking-tighter italic">Experience</p>
+                {experience.slice(0, 3).map((exp, i) => (
+                  <p key={i} className="mb-1 font-bold text-gray-800">· {exp.role} at {exp.company}</p>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+      case 'purple-sidebar':
+        return (
+          <div className="h-full flex bg-white text-[6px] text-left">
+            <aside className="w-[38%] bg-[#6C3CE1] p-4 text-white">
+              <div className="w-10 h-10 rounded-full bg-white text-[#6C3CE1] flex items-center justify-center font-bold text-lg mb-4">{initials}</div>
+              <p className="font-black text-[9px] leading-tight">{name}</p>
+              <p className="opacity-70 mt-1 uppercase font-black text-[5px] tracking-widest">AI/ML DEVELOPER</p>
+              <div className="w-full h-px bg-white/20 my-4" />
+              <p className="font-black uppercase mb-3 tracking-[0.2em] text-[5px] opacity-60">Competencies</p>
+              <div className="space-y-2">
+                 {['Python', 'React', 'ML'].map(s => (
+                   <div key={s} className="space-y-1">
+                      <p className="flex justify-between font-black uppercase"><span>{s}</span> <span>85%</span></p>
+                      <div className="w-full h-1 bg-white/20 rounded-full"><div className="w-[85%] h-full bg-white" /></div>
                    </div>
-                   <div className="grid grid-cols-2 gap-6">
-                      <div>
-                         <p className={sectionHeading}>Competencies</p>
-                         <div className="grid grid-cols-1 gap-1">
-                            {['Data Viz', 'SQL/NoSQL', 'Market Analysis', 'Python'].map(s => <p key={s} className="text-[4px] font-bold text-slate-600">▪ {s}</p>)}
-                         </div>
-                      </div>
-                      <div>
-                         <p className={sectionHeading}>Education</p>
-                         <p className={boldText}>MBA, IIM Bangalore</p>
-                         <p className={bodyText}>Class of 2019 · Silver Medalist</p>
-                      </div>
-                   </div>
+                 ))}
+              </div>
+            </aside>
+            <main className="flex-1 p-5 space-y-5">
+               <div>
+                  <p className="text-[8px] font-black text-[#6C3CE1] uppercase mb-2 tracking-widest border-b border-[#6C3CE1]/20 pb-1 italic italic">Career Node</p>
+                  {experience.slice(0, 3).map((exp, i) => (
+                    <div key={i} className="mb-2">
+                      <p className="font-black text-black uppercase">{exp.role}</p>
+                      <p className="text-[#6C3CE1] font-bold opacity-60">{exp.company}</p>
+                    </div>
+                  ))}
+               </div>
+            </main>
+          </div>
+        );
+      case 'teal-creative':
+        return (
+          <div className="h-full bg-white text-[7px] text-left">
+            <header className="bg-gradient-to-r from-[#0F766E] to-[#0D9488] p-5 text-white flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-full bg-white text-[#0D9488] flex items-center justify-center font-bold text-lg">{initials}</div>
+                <div>
+                   <p className="font-black text-[10px] uppercase">{name}</p>
+                   <p className="text-teal-100 opacity-80 uppercase font-bold text-[5px] tracking-widest mt-0.5">AI/ML & FULL STACK DEVELOPER</p>
                 </div>
-             </div>
+              </div>
+            </header>
+            <div className="p-5 space-y-6">
+               <div className="border-l-[3px] border-[#0D9488] pl-3">
+                  <p className="font-black text-[#0D9488] uppercase tracking-widest mb-3 text-[8px] leading-none">Experience</p>
+                  <div className="space-y-3">
+                    {experience.slice(0, 2).map((exp, i) => <p key={i} className="font-bold text-gray-800 tracking-tight leading-relaxed">· {exp.role} @ {exp.company}</p>)}
+                  </div>
+               </div>
+               <div className="border-l-[3px] border-[#0D9488] pl-3">
+                  <p className="font-black text-[#0D9488] uppercase tracking-widest mb-3 text-[8px] leading-none">Hard Skills</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {skills_tech.slice(0, 5).map(s => <span key={s} className="px-2 py-0.5 bg-teal-50 text-[#0D9488] font-black rounded border border-[#0D9488]/10">{s}</span>)}
+                  </div>
+               </div>
+            </div>
           </div>
         );
       default:
-        return (
-          <div className="p-8 space-y-6 bg-white flex flex-col h-full border-t-[3px] border-primary overflow-hidden">
-            <div className="flex justify-between items-end border-b border-gray-100 pb-5">
-               <div className="space-y-1">
-                  <h4 className="text-[13px] font-black text-dark tracking-tighter uppercase leading-none">Priya Sharma</h4>
-                  <p className="text-[5.5px] text-primary font-bold tracking-widest uppercase">Senior Product Designer · B.E Computer Science</p>
-               </div>
-               <div className="text-right space-y-0.5">
-                  <p className="text-[4.5px] font-bold text-gray-400 uppercase italic">Digital Profile: iamfolio.in/priya</p>
-                  <p className="text-[4px] text-gray-400">Bangalore, IN · Remote</p>
-               </div>
-            </div>
-            <div className="flex-1 space-y-6">
-               <div>
-                  <p className={sectionHeading}>Career Summary</p>
-                  <p className="text-[5px] text-gray-text leading-relaxed font-medium">Design leader with a deep technical background in engineering. Specialist in bridging the gap between complex backend logic and user-friendly interface designs. Mentored 20+ designers in the last 4 years.</p>
-               </div>
-               <div>
-                  <p className={sectionHeading}>Experience Milestones</p>
-                  <div className="space-y-5">
-                      <div className="flex justify-between items-start">
-                         <div className="space-y-1">
-                            <p className={boldText}>Lead Experience Designer · Zoho Corporation</p>
-                            <p className={bodyText}>Managed a cross-functional squad of 15 designers and developers to ship the 'Global Search' overhaul, resulting in a 35% decrease in time-to-task and 4M+ daily active searchers.</p>
-                         </div>
-                         <p className="text-[3.8px] text-gray-400 font-black italic">2021 – Pres</p>
-                      </div>
-                      <div className="flex justify-between items-start">
-                         <div className="space-y-1">
-                            <p className={boldText}>Sr. Product Designer · Cisco Systems</p>
-                            <p className={bodyText}>Designed the Webex Enterprise Dashboard, simplifying billing and meeting analytics for millions of active corporate users globally.</p>
-                         </div>
-                         <p className="text-[3.8px] text-gray-400 font-black italic">2018 – 2021</p>
-                      </div>
-                  </div>
-               </div>
-               <div className="grid grid-cols-2 gap-6">
-                  <div>
-                    <p className={sectionHeading}>Key Projects</p>
-                    <div className="space-y-2">
-                       <p className={bodyText}><span className="font-bold text-dark">OmniSearch API:</span> A unified search experience across 50+ Zoho apps.</p>
-                       <p className={bodyText}><span className="font-bold text-dark">Lumina Design:</span> Open-source design library with over 10k stars on GitHub.</p>
-                    </div>
-                  </div>
-                  <div>
-                    <p className={sectionHeading}>Education</p>
-                    <p className={boldText}>B.E in Computer Science</p>
-                    <p className={bodyText}>Anna University, Chennai · 2018</p>
-                    <p className="text-[4px] text-gray-400 italic">First Class with Distinction</p>
-                  </div>
-               </div>
-            </div>
-            <div className="flex justify-between items-center pt-3 border-t border-gray-50">
-               <p className="text-[4px] font-bold text-gray-200">ATS-READY DOCUMENT ID: #IFP-2026-PS-00923</p>
-               <div className="flex gap-1.5">
-                  <div className="w-1 h-1 rounded-full bg-primary/20"></div>
-                  <div className="w-1 h-1 rounded-full bg-primary/20"></div>
-                  <div className="w-1 h-1 rounded-full bg-primary/20"></div>
-               </div>
-            </div>
-          </div>
-        );
+        return null;
     }
   };
 
   return (
-    <section id="templates" className="py-24 bg-white relative">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 text-center">
-        <h2 className="text-4xl md:text-5xl font-bold text-dark tracking-tight">8+ ATS-friendly templates</h2>
-        <p className="mt-4 text-xl text-gray-text font-medium">Export a professional resume from your profile in one click.</p>
-
-        <div className="relative mt-16 group">
-          {/* Scroll Buttons */}
-          <button 
-            onClick={() => scroll('left')}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-6 z-20 w-12 h-12 bg-white rounded-full shadow-xl border border-gray-border flex items-center justify-center text-gray-text hover:text-primary transition-all opacity-0 group-hover:opacity-100 hidden md:flex"
-          >
-            <ChevronLeft className="w-6 h-6" />
-          </button>
-          <button 
-            onClick={() => scroll('right')}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-6 z-20 w-12 h-12 bg-white rounded-full shadow-xl border border-gray-border flex items-center justify-center text-gray-text hover:text-primary transition-all opacity-0 group-hover:opacity-100 hidden md:flex"
-          >
-            <ChevronRight className="w-6 h-6" />
-          </button>
-
-          {/* Scrollable Row */}
-          <div 
-            ref={scrollRef}
-            className="flex gap-8 overflow-x-auto pb-10 snap-x scrollbar-hide no-scrollbar px-4"
-          >
-            {templates.map((tpl, i) => (
-              <motion.div 
-                key={tpl.name}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="flex-shrink-0 w-72 snap-start group cursor-pointer"
-              >
-                <div className="relative aspect-[3/4.2] bg-white rounded-2xl border border-gray-border shadow-md group-hover:shadow-2xl group-hover:-translate-y-2 transition-all duration-500 overflow-hidden">
-                  {/* Tag */}
-                  {tpl.tag && (
-                    <div className="absolute top-4 right-4 z-10 px-3 py-1 bg-white/90 backdrop-blur-sm border border-gray-100 rounded-full shadow-sm">
-                      <p className="text-[10px] font-bold text-primary uppercase tracking-widest flex items-center gap-1">
-                        {tpl.tag === 'Hot' ? <Zap className="w-3 h-3 fill-primary" /> : <Star className="w-3 h-3 fill-primary" />}
-                        {tpl.tag}
-                      </p>
-                    </div>
-                  )}
-
-                  <div className="h-full bg-white overflow-hidden">
-                    {renderLayout(tpl.layout, tpl.color)}
-                  </div>
-
-                  {/* Overlay */}
-                  <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors pointer-events-none"></div>
-                </div>
-
-                <div className="mt-6 text-center">
-                  <h3 className="text-lg font-bold text-dark group-hover:text-primary transition-colors">{tpl.name}</h3>
-                  <button className="mt-4 w-full py-3 bg-white border-2 border-primary text-primary font-bold rounded-button hover:bg-primary hover:text-white transition-all text-sm uppercase tracking-widest shadow-lg shadow-primary/5">
-                    Use This Template
-                  </button>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+    <section id="templates" className="relative overflow-hidden pt-20 md:pt-32 pb-24 md:pb-40 bg-[#0A0A0F]">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-20 px-6 md:px-12 gap-8">
+        <div className="max-w-3xl">
+          <h3 className="text-[32px] sm:text-[42px] md:text-[64px] font-black text-white font-syne uppercase italic tracking-tighter leading-[0.9] sm:leading-none">
+            ⭐ PREMIUM TEMPLATES
+          </h3>
+          <p className="text-[#64748B] font-black mt-4 md:mt-6 uppercase tracking-[0.3em] font-mono text-[10px] md:text-[12px] leading-relaxed max-w-xl italic">
+            PICK YOUR VIBE. TRANSFORM YOUR PROFESSIONAL WORLD. ALL TEMPLATES ATS CO-PROCESSOR READY.
+          </p>
         </div>
-
-        <div className="mt-12 flex items-center justify-center gap-2">
-            <p className="text-gray-text font-medium">Want something custom?</p>
-            <button className="text-primary font-bold hover:underline">
-              Browse Template Library →
-            </button>
+        <div className="flex gap-4 self-end md:self-auto">
+          <button onClick={() => scroll('left')} className="p-5 md:p-6 rounded-full border border-[#1E1E2E] bg-[#111118] text-[#6EE7B7] hover:bg-[#6C3CE1] hover:text-white transition-all shadow-2xl active:scale-95 group"><ChevronLeft size={24} className="group-hover:scale-110" /></button>
+          <button onClick={() => scroll('right')} className="p-5 md:p-6 rounded-full border border-[#1E1E2E] bg-[#111118] text-[#6EE7B7] hover:bg-[#6C3CE1] hover:text-white transition-all shadow-2xl active:scale-95 group"><ChevronRight size={24} className="group-hover:scale-110" /></button>
         </div>
+      </div>
+
+      <div 
+        ref={scrollRef}
+        onScroll={handleScroll}
+        className="flex gap-6 md:gap-10 overflow-x-auto pb-12 md:pb-16 px-6 md:px-12 no-scrollbar scroll-smooth snap-x touch-pan-x"
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+      >
+        {templates.map((template, index) => (
+          <motion.div
+            key={index}
+            className="flex-shrink-0 w-[85vw] sm:w-[320px] lg:w-[300px] xl:w-[280px] group snap-center"
+          >
+            <div className="relative h-[480px] md:h-[500px] rounded-[24px] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.6)] border border-[#1E1E2E] bg-white transition-all duration-500 group-hover:scale-[1.03] group-hover:translate-y-[-8px] group-hover:shadow-[0_40px_80px_rgba(108,60,225,0.2)]">
+              {renderLayout(template.id)}
+              
+              <div className={`absolute top-6 left-6 px-4 py-1.5 font-black text-[9px] uppercase rounded-full shadow-2xl ${template.badgeColor} z-20 tracking-widest italic`}>
+                {template.badge}
+              </div>
+
+              {/* Hover Overlay */}
+              <div className="absolute inset-0 bg-[#0A0A0F]/60 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center p-8 backdrop-blur-[2px]">
+                 <button className="w-full py-5 bg-[#6C3CE1] text-white font-black text-[12px] uppercase tracking-[0.3em] rounded-sm shadow-2xl hover:bg-[#FF6B35] transition-all transform translate-y-8 group-hover:translate-y-0 duration-500 font-mono italic border border-white/20">
+                   USE TEMPLATE →
+                 </button>
+              </div>
+            </div>
+
+            <div className="mt-8 text-center space-y-2">
+              <h4 className="text-[14px] font-black text-white uppercase tracking-[0.3em] font-mono italic opacity-80 group-hover:opacity-100 transition-opacity">{template.name.toUpperCase()}</h4>
+              <p className="text-[10px] font-black text-[#6EE7B7] uppercase tracking-[0.3em] font-mono italic bg-[#6EE7B7]/10 inline-block px-3 py-1 rounded-full border border-[#6EE7B7]/20">ATS_NODE: {template.score}/100</p>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Progress indicators */}
+      <div className="flex justify-center gap-4 mt-8 md:mt-12">
+        {Array.from({ length: Math.ceil(templates.length / 1) }).map((_, i) => (
+          <div key={i} className={`h-1.5 rounded-full transition-all duration-500 ${activeIndex === i ? 'w-12 bg-[#6EE7B7]' : 'w-2 bg-[#64748B]/30'}`} />
+        ))}
       </div>
     </section>
   );

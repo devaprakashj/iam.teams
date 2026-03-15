@@ -10,13 +10,13 @@ const stats = [
 
 export const Stats = () => {
   return (
-    <section className="bg-[#1F4E79] py-20">
+    <section className="bg-[#111118] py-12 md:py-20 border-y border-[#1E1E2E]">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-12">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-10 md:gap-y-12">
            {stats.map((s, i) => (
-             <div key={i} className={`text-center space-y-2 relative ${i !== stats.length - 1 ? 'lg:border-r lg:border-white/10' : ''}`}>
-                <p className="text-4xl md:text-5xl font-bold text-white tracking-tight">{s.val}</p>
-                <p className="text-sm md:text-base font-medium text-[#9DC3E6] uppercase tracking-wider">{s.label}</p>
+             <div key={i} className={`text-center space-y-1 md:space-y-2 relative ${(i % 2 !== 1) ? 'border-r border-[#1E1E2E]' : ''} ${i !== stats.length - 1 ? 'lg:border-r lg:border-[#1E1E2E]' : ''}`}>
+                <p className="text-3xl md:text-5xl font-black text-[#6C3CE1] font-syne italic tracking-tighter">{s.val}</p>
+                <p className="text-[9px] md:text-[11px] font-black text-[#64748B] uppercase tracking-[0.2em] md:tracking-[0.3em] font-mono">{s.label}</p>
              </div>
            ))}
         </div>

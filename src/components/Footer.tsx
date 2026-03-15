@@ -5,64 +5,63 @@ import { Facebook, Twitter, Instagram, Linkedin, Github } from 'lucide-react';
 
 export const Footer = () => {
   return (
-    <footer className="bg-dark text-white pt-20 pb-10">
+    <footer className="bg-[#050508] text-white pt-16 md:pt-24 pb-10 md:pb-12 border-t border-[#1E1E2E]">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-10 md:gap-12 lg:gap-16 mb-16 md:mb-20">
           
           {/* Logo & Tagline */}
-          <div className="lg:col-span-2 space-y-6">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center font-bold text-white">i</div>
-              <span className="text-2xl font-bold tracking-tight">iamfolio</span>
+          <div className="md:col-span-3 lg:col-span-2 space-y-6 md:space-y-8 flex flex-col items-center md:items-start text-center md:text-left">
+            <Link href="/" className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-[#6C3CE1] rounded flex items-center justify-center font-black text-white italic">IF</div>
+              <span className="text-xl md:text-2xl font-black font-syne text-[#6EE7B7] tracking-tighter uppercase italic">iamfolio</span>
             </Link>
-            <p className="text-gray-400 max-w-xs font-medium leading-relaxed">
-              Your career. Your identity. Your story. <br />
-              AI-powered profiles for the modern Indian workforce.
+            <p className="text-[#64748B] max-w-xs font-bold leading-relaxed uppercase tracking-tight font-mono text-[10px] md:text-xs">
+              Your career manifest. Your identity. <br className="hidden md:block" />
+              High-performance profiles for the professional grid.
             </p>
           </div>
           
           {/* Columns */}
-          <div>
-            <h4 className="font-bold mb-6 text-white uppercase tracking-wider text-sm">Product</h4>
-            <ul className="space-y-4 text-gray-400 font-medium text-sm">
-              <li><Link href="#features" className="hover:text-white transition-colors">How It Works</Link></li>
-              <li><Link href="#templates" className="hover:text-white transition-colors">Templates</Link></li>
-              <li><Link href="#pricing" className="hover:text-white transition-colors">Pricing</Link></li>
-              <li><Link href="#" className="hover:text-white transition-colors">AI Resume Score</Link></li>
-              <li><Link href="#" className="hover:text-white transition-colors">Mock Interviews</Link></li>
-            </ul>
-          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:contents gap-8 md:col-span-3 lg:col-span-3">
+            <div>
+              <h4 className="font-black mb-6 md:mb-8 text-white uppercase tracking-[0.2em] text-[9px] md:text-[10px] font-mono italic">// PRODUCT</h4>
+              <ul className="space-y-3 md:space-y-4 text-[#64748B] font-bold text-[10px] md:text-[11px] uppercase tracking-wide">
+                <li><Link href="#features" className="hover:text-white transition-colors">Telemetry</Link></li>
+                <li><Link href="#templates" className="hover:text-white transition-colors">Templates</Link></li>
+                <li><Link href="#pricing" className="hover:text-white transition-colors">Pricing</Link></li>
+                <li><Link href="#" className="hover:text-white transition-colors">AI Scoring</Link></li>
+              </ul>
+            </div>
 
-          <div>
-            <h4 className="font-bold mb-6 text-white uppercase tracking-wider text-sm">Company</h4>
-            <ul className="space-y-4 text-gray-400 font-medium text-sm">
-              <li><Link href="#" className="hover:text-white transition-colors">About Us</Link></li>
-              <li><Link href="#" className="hover:text-white transition-colors">Careers</Link></li>
-              <li><Link href="#" className="hover:text-white transition-colors">Privacy Policy</Link></li>
-              <li><Link href="#" className="hover:text-white transition-colors">Terms of Service</Link></li>
-            </ul>
-          </div>
+            <div>
+              <h4 className="font-black mb-6 md:mb-8 text-white uppercase tracking-[0.2em] text-[9px] md:text-[10px] font-mono italic">// ENTITY</h4>
+              <ul className="space-y-3 md:space-y-4 text-[#64748B] font-bold text-[10px] md:text-[11px] uppercase tracking-wide">
+                <li><Link href="#" className="hover:text-white transition-colors">Operational</Link></li>
+                <li><Link href="#" className="hover:text-white transition-colors">Privacy</Link></li>
+                <li><Link href="#" className="hover:text-white transition-colors">Terms</Link></li>
+              </ul>
+            </div>
 
-          <div>
-            <h4 className="font-bold mb-6 text-white uppercase tracking-wider text-sm">Resources</h4>
-            <ul className="space-y-4 text-gray-400 font-medium text-sm">
-              <li><Link href="#" className="hover:text-white transition-colors">Blog</Link></li>
-              <li><Link href="#" className="hover:text-white transition-colors">Contact Support</Link></li>
-              <li><Link href="#" className="hover:text-white transition-colors">Help Center</Link></li>
-              <li><Link href="#" className="hover:text-white transition-colors">For Colleges</Link></li>
-            </ul>
+            <div className="col-span-2 md:col-span-1">
+              <h4 className="font-black mb-6 md:mb-8 text-white uppercase tracking-[0.2em] text-[9px] md:text-[10px] font-mono italic">// RESOURCES</h4>
+              <ul className="space-y-3 md:space-y-4 text-[#64748B] font-bold text-[10px] md:text-[11px] uppercase tracking-wide">
+                <li><Link href="#" className="hover:text-white transition-colors">The Grid</Link></li>
+                <li><Link href="#" className="hover:text-white transition-colors">Support</Link></li>
+                <li><Link href="#" className="hover:text-white transition-colors">Community</Link></li>
+              </ul>
+            </div>
           </div>
 
         </div>
 
-        <div className="pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-sm text-gray-500 font-medium">
-            © 2025 iamfolio Technologies Pvt. Ltd. Made with ❤️ for India.
+        <div className="pt-10 md:pt-12 border-t border-[#1E1E2E] flex flex-col md:flex-row justify-between items-center gap-8">
+          <p className="text-[8px] md:text-[9px] text-[#64748B] font-black uppercase tracking-[0.3em] font-mono text-center md:text-left">
+            © 2026 iamfolio grid systems. Synchronized for performance.
           </p>
-          <div className="flex gap-6">
-            {[Linkedin, Instagram, Twitter, Facebook, Github].map((Icon, i) => (
-              <Link key={i} href="#" className="text-gray-500 hover:text-white transition-colors">
-                <Icon className="w-5 h-5" />
+          <div className="flex gap-6 md:gap-8">
+            {[Linkedin, Instagram, Twitter, Github].map((Icon, i) => (
+              <Link key={i} href="#" className="text-[#64748B] hover:text-white transition-all hover:scale-125">
+                <Icon className="w-4 h-4 md:w-5 md:h-5" />
               </Link>
             ))}
           </div>

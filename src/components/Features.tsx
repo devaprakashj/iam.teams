@@ -6,55 +6,61 @@ import { Brain, Download, Mic, Search, Globe, ChartBar } from 'lucide-react';
 const features = [
   {
     icon: Brain,
-    color: 'text-primary',
-    bgColor: 'bg-primary/10',
+    color: 'text-[#6C3CE1]',
+    bgColor: 'bg-[#6C3CE1]/10',
+    borderColor: 'border-[#6C3CE1]/20',
     title: "AI Profile Builder",
-    desc: "Upload resume or answer questions — AI writes your bio, extracts skills, formats everything"
+    desc: "Upload resume or answer questions — AI writes your professional manifest, extracts skills, and formats everything."
   },
   {
     icon: Download,
-    color: 'text-blue-500',
-    bgColor: 'bg-blue-50',
+    color: 'text-[#60A5FA]',
+    bgColor: 'bg-[#60A5FA]/10',
+    borderColor: 'border-[#60A5FA]/20',
     title: "ATS Resume Export",
-    desc: "Download your profile as a perfectly formatted PDF resume in one click. 8 templates."
+    desc: "Download your profile as a perfectly formatted PDF resume in one click. 8 high-performance templates included."
   },
   {
     icon: Mic,
-    color: 'text-cta',
-    bgColor: 'bg-cta/10',
-    title: "Mock Interview Practice",
-    desc: "AI interviews you based on your profile and target role. Real-time feedback after each answer."
+    color: 'text-[#FF6B35]',
+    bgColor: 'bg-[#FF6B35]/10',
+    borderColor: 'border-[#FF6B35]/20',
+    title: "Mock Interview Engine",
+    desc: "AI interviews you based on your identity node and target role. Real-time feedback after each spoken answer."
   },
   {
     icon: Search,
-    color: 'text-teal-500',
-    bgColor: 'bg-teal-50',
+    color: 'text-[#6EE7B7]',
+    bgColor: 'bg-[#6EE7B7]/10',
+    borderColor: 'border-[#6EE7B7]/20',
     title: "Smart Job Matching",
-    desc: "Platform matches live Indian job openings to your exact skills, experience and target role."
+    desc: "The platform matches live Indian job openings to your exact skills, experience and target role automatically."
   },
   {
     icon: Globe,
-    color: 'text-primary',
-    bgColor: 'bg-primary/10',
-    title: "Public Profile Page",
-    desc: "Your own iamfolio.in/username — share on WhatsApp, email, LinkedIn, anywhere in one tap."
+    color: 'text-[#6C3CE1]',
+    bgColor: 'bg-[#6C3CE1]/10',
+    borderColor: 'border-[#6C3CE1]/20',
+    title: "Public Identity Node",
+    desc: "Your own iamfolio.in/username — share on WhatsApp, email, LinkedIn, anywhere in one tap. Instant access."
   },
   {
     icon: ChartBar,
-    color: 'text-green-500',
-    bgColor: 'bg-green-50',
-    title: "Career Dashboard",
-    desc: "Track profile views, job applications, interview scores, and career progress over time."
+    color: 'text-[#6EE7B7]',
+    bgColor: 'bg-[#6EE7B7]/10',
+    borderColor: 'border-[#6EE7B7]/20',
+    title: "Career Telemetry",
+    desc: "Track profile views, job applications, interview scores, and career growth metrics over the professional grid."
   }
 ];
 
 export const Features = () => {
   return (
-    <section id="features" className="py-24 bg-gray-bg">
+    <section id="features" className="py-16 md:py-24 bg-[#0A0A0F]">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-dark">Everything inside your iamfolio profile</h2>
-          <p className="mt-4 text-xl text-gray-text">One profile. Infinite possibilities.</p>
+        <div className="text-center mb-12 md:mb-20">
+          <h2 className="text-2xl md:text-5xl font-black text-white font-syne uppercase italic tracking-tighter italic leading-tight">Everything inside <br className="md:hidden" /> your profile</h2>
+          <p className="mt-4 md:mt-6 text-[10px] md:text-[11px] text-[#64748B] font-black uppercase tracking-[0.2em] md:tracking-[0.3em] font-mono italic">// ONE_MANIFEST. INFINITE_POSSIBILITIES.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -65,13 +71,13 @@ export const Features = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="p-10 bg-white rounded-card shadow-card border border-gray-border hover:-translate-y-1 transition-all duration-300"
+              className="p-8 md:p-10 bg-[#111118] rounded-2xl border border-[#1E1E2E] hover:border-[#6C3CE1]/30 transition-all duration-300 shadow-2xl group"
             >
-              <div className={`w-14 h-14 ${f.bgColor} rounded-xl flex items-center justify-center mb-8`}>
-                <f.icon className={`w-7 h-7 ${f.color}`} />
+              <div className={`w-12 h-12 md:w-14 md:h-14 ${f.bgColor} ${f.borderColor} border rounded-xl flex items-center justify-center mb-6 md:mb-8 group-hover:scale-110 transition-transform`}>
+                <f.icon className={`w-6 h-6 md:w-7 md:h-7 ${f.color}`} />
               </div>
-              <h3 className="text-2xl font-bold text-dark mb-4">{f.title}</h3>
-              <p className="text-gray-text leading-relaxed">
+              <h3 className="text-lg md:text-xl font-black text-white mb-3 md:mb-4 font-syne uppercase italic italic leading-none">{f.title}</h3>
+              <p className="text-xs md:text-[13px] text-[#64748B] leading-relaxed font-medium">
                 {f.desc}
               </p>
             </motion.div>
