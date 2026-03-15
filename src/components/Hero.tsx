@@ -27,11 +27,11 @@ export const Hero = () => {
   return (
     <section 
       onMouseMove={handleMouseMove}
-      className="relative pt-24 md:pt-40 pb-20 overflow-hidden bg-[#0A0A0F]"
+      className="relative pt-24 md:pt-40 pb-20 overflow-hidden bg-white"
     >
       {/* Background Blobs */}
       <div className="absolute top-[20%] left-[10%] w-[30%] h-[40%] bg-[#6C3CE1]/5 blur-[100px] rounded-full -z-10"></div>
-      <div className="absolute top-[40%] left-[5%] w-[25%] h-[35%] bg-[#6EE7B7]/5 blur-[100px] rounded-full -z-10"></div>
+      <div className="absolute top-[40%] left-[5%] w-[25%] h-[35%] bg-blue-500/5 blur-[100px] rounded-full -z-10"></div>
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col-reverse lg:flex-row items-center gap-12 md:gap-20">
         
@@ -44,25 +44,25 @@ export const Hero = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
-            className="relative z-20 w-full max-w-[320px] md:max-w-[420px] bg-[#111118] rounded-2xl shadow-2xl overflow-hidden border border-[#1E1E2E] flex scale-[0.8] sm:scale-90 md:scale-100"
+            className="relative z-20 w-full max-w-[320px] md:max-w-[420px] bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100 flex scale-[0.8] sm:scale-90 md:scale-100"
           >
             {/* Resume Sidebar */}
-            <div className="w-1/3 bg-[#0D0D14] p-4 md:p-6 border-r border-[#1E1E2E] flex flex-col items-center">
-              <div className="w-12 h-12 md:w-16 md:h-16 bg-[#6C3CE1]/15 rounded-full overflow-hidden mb-4 border border-[#6C3CE1]/20">
+            <div className="w-1/3 bg-gray-50 p-4 md:p-6 border-r border-gray-100 flex flex-col items-center">
+              <div className="w-12 h-12 md:w-16 md:h-16 bg-[#6C3CE1]/10 rounded-full overflow-hidden mb-4 border border-[#6C3CE1]/10">
                 <img 
                   src="https://i.pravatar.cc/150?u=priyasharma_female" 
                   alt="Priya Sharma" 
-                  className="w-full h-full object-cover opacity-90"
+                  className="w-full h-full object-cover"
                 />
               </div>
-              <h4 className="text-[10px] md:text-sm font-bold text-white text-center leading-tight font-syne uppercase">Priya Sharma</h4>
-              <p className="text-[8px] md:text-[10px] text-[#6EE7B7] font-black mt-1 uppercase tracking-wider font-mono text-center">UI/UX Designer</p>
+              <h4 className="text-[10px] md:text-sm font-bold text-gray-900 text-center leading-tight font-syne uppercase">Priya Sharma</h4>
+              <p className="text-[8px] md:text-[10px] text-[#6C3CE1] font-black mt-1 uppercase tracking-wider font-mono text-center">UI/UX Designer</p>
               
               <div className="mt-8 w-full space-y-4">
                 <div className="hidden md:block">
-                  <p className="text-[9px] font-black text-[#64748B] uppercase tracking-widest mb-1 font-mono italic">Contact</p>
-                  <p className="text-[10px] text-[#E2E8F0] font-medium uppercase font-syne">Chennai, India</p>
-                  <p className="text-[10px] text-[#E2E8F0] font-medium truncate font-mono">priya@gmail.com</p>
+                  <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-1 font-mono italic">Contact</p>
+                  <p className="text-[10px] text-gray-900 font-medium uppercase font-syne">Chennai, India</p>
+                  <p className="text-[10px] text-gray-900 font-medium truncate font-mono">priya@gmail.com</p>
                 </div>
               </div>
             </div>
@@ -70,28 +70,28 @@ export const Hero = () => {
             {/* Resume Main Content */}
             <div className="flex-1 p-4 md:p-6 space-y-4 md:space-y-6">
               <div>
-                <h5 className="text-[9px] md:text-[10px] font-black text-white uppercase tracking-widest mb-2 border-b border-[#1E1E2E] pb-1 font-mono italic">Summary</h5>
-                <p className="text-[9px] md:text-[10px] text-[#64748B] leading-relaxed font-medium line-clamp-3">
+                <h5 className="text-[9px] md:text-[10px] font-black text-gray-900 uppercase tracking-widest mb-2 border-b border-gray-100 pb-1 font-mono italic">Summary</h5>
+                <p className="text-[9px] md:text-[10px] text-gray-500 leading-relaxed font-medium line-clamp-3">
                   Design lead with 4+ years of experience in enterprise SaaS products. Focused on user-centric design architectures.
                 </p>
               </div>
 
               <div>
-                <h5 className="text-[9px] md:text-[10px] font-black text-white uppercase tracking-widest mb-3 border-b border-[#1E1E2E] pb-1 font-mono italic">Experience</h5>
+                <h5 className="text-[9px] md:text-[10px] font-black text-gray-900 uppercase tracking-widest mb-3 border-b border-gray-100 pb-1 font-mono italic">Experience</h5>
                 <div className="space-y-4">
                   <div className="relative pl-3 border-l-[1px] border-[#6C3CE1]/40">
-                    <p className="text-[9px] md:text-[10px] font-black text-white uppercase font-syne truncate">Zoho Corp</p>
+                    <p className="text-[9px] md:text-[10px] font-black text-gray-900 uppercase font-syne truncate">Zoho Corp</p>
                     <p className="text-[8px] md:text-[9px] text-[#6C3CE1] font-black font-mono uppercase">Jr. UI/UX Designer</p>
-                    <p className="text-[7px] md:text-[8px] text-[#64748B] mt-0.5 font-mono">2023–Present</p>
+                    <p className="text-[7px] md:text-[8px] text-gray-500 mt-0.5 font-mono">2023–Present</p>
                   </div>
                 </div>
               </div>
 
               <div className="pt-2 md:pt-4">
-                 <div className="h-1.5 md:h-2 w-full bg-[#0D0D14] rounded-full overflow-hidden border border-[#1E1E2E]">
-                    <div className="h-full w-[85%] bg-[#6EE7B7]" />
+                 <div className="h-1.5 md:h-2 w-full bg-gray-100 rounded-full overflow-hidden border border-gray-200">
+                    <div className="h-full w-[85%] bg-green-500" />
                  </div>
-                 <p className="text-[7px] md:text-[8px] font-black text-[#6EE7B7] mt-2 uppercase tracking-widest font-mono italic">ATS Compatibility: 85%</p>
+                 <p className="text-[7px] md:text-[8px] font-black text-green-600 mt-2 uppercase tracking-widest font-mono italic">ATS Compatibility: 85%</p>
               </div>
             </div>
           </motion.div>
@@ -138,8 +138,8 @@ export const Hero = () => {
             <span className="inline-block px-4 py-2 bg-[#6C3CE1]/15 text-[#6C3CE1] text-[9px] md:text-[10px] font-black uppercase tracking-[0.4em] rounded-full mb-8 italic font-mono border border-[#6C3CE1]/20">
                System_Identity_Active // 2026
             </span>
-            <h1 className="text-[32px] sm:text-[42px] md:text-[54px] lg:text-[72px] font-black text-white leading-[0.95] md:leading-[0.85] tracking-tight font-syne uppercase italic">
-              Build Your Career <br className="hidden sm:block" /><span className="text-[#6EE7B7]">Identity</span> in 60s
+            <h1 className="text-[32px] sm:text-[42px] md:text-[54px] lg:text-[72px] font-black text-gray-900 leading-[0.95] md:leading-[0.85] tracking-tight font-syne uppercase italic">
+              Build Your Career <br className="hidden sm:block" /><span className="text-[#6C3CE1]">Identity</span> in 60s
             </h1>
           </motion.div>
 
@@ -147,9 +147,9 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mt-8 md:mt-10 text-[14px] md:text-[20px] text-[#64748B] leading-relaxed max-w-xl mx-auto lg:mx-0 font-bold uppercase tracking-tight italic"
+            className="mt-8 md:mt-10 text-[14px] md:text-[20px] text-gray-600 leading-relaxed max-w-xl mx-auto lg:mx-0 font-bold uppercase tracking-tight italic"
           >
-            iamfolio instantly builds your professional manifest. Stop sending PDFs — share <span className="text-white font-black font-mono italic bg-[#1E1E2E] px-2 py-0.5 rounded">iamfolio.in/{'{'}user{'}'}</span> and secure the grid.
+            iamfolio instantly builds your professional manifest. Stop sending PDFs — share <span className="text-gray-900 font-black font-mono italic bg-gray-100 px-2 py-0.5 rounded">iamfolio.in/{'{'}user{'}'}</span> and secure the grid.
           </motion.p>
 
           <motion.div 
@@ -164,7 +164,7 @@ export const Hero = () => {
               </button>
             </Link>
             <Link href="#how-it-works" className="w-full sm:w-auto">
-              <button className="w-full px-10 md:px-12 py-5 md:py-6 bg-transparent border-2 border-white text-white font-black rounded-sm text-sm md:text-xl hover:bg-white hover:text-black transition-all uppercase tracking-[0.2em] font-mono">
+              <button className="w-full px-10 md:px-12 py-5 md:py-6 bg-transparent border-2 border-gray-900 text-gray-900 font-black rounded-sm text-sm md:text-xl hover:bg-gray-900 hover:text-white transition-all uppercase tracking-[0.2em] font-mono">
                 How It Works
               </button>
             </Link>
@@ -179,26 +179,26 @@ export const Hero = () => {
           >
             <div className="text-left group">
               <p className="text-4xl md:text-5xl font-black text-[#6C3CE1] font-syne group-hover:scale-110 transition-transform cursor-default italic tracking-tighter leading-none">↑ 38%</p>
-              <p className="text-[10px] md:text-[11px] text-[#64748B] font-black uppercase tracking-[0.2em] font-mono mt-2 italic">Interviews</p>
+              <p className="text-[10px] md:text-[11px] text-gray-500 font-black uppercase tracking-[0.2em] font-mono mt-2 italic">Interviews</p>
             </div>
-            <div className="w-[1px] h-12 md:h-16 bg-[#1E1E2E]"></div>
+            <div className="w-[1px] h-12 md:h-16 bg-gray-200"></div>
             <div className="text-left group">
               <p className="text-4xl md:text-5xl font-black text-[#6C3CE1] font-syne group-hover:scale-110 transition-transform cursor-default italic tracking-tighter leading-none">↑ 23%</p>
-              <p className="text-[10px] md:text-[11px] text-[#64748B] font-black uppercase tracking-[0.2em] font-mono mt-2 italic">Salary</p>
+              <p className="text-[10px] md:text-[11px] text-gray-500 font-black uppercase tracking-[0.2em] font-mono mt-2 italic">Salary</p>
             </div>
           </motion.div>
         </div>
       </div>
 
       {/* --- COMPANY LOGOS (Marquee style) --- */}
-      <div className="mt-24 md:mt-32 border-y border-[#1E1E2E] py-8 md:py-12 bg-[#0D0D14]/50">
+      <div className="mt-24 md:mt-32 border-y border-gray-100 py-8 md:py-12 bg-gray-50/50">
         <div className="max-w-7xl mx-auto px-6 overflow-hidden">
-          <p className="text-center text-[10px] font-black text-[#64748B] uppercase tracking-[0.4em] mb-8 font-mono italic">TRUSTED BY CANDIDATES AT</p>
+          <p className="text-center text-[10px] font-black text-gray-400 uppercase tracking-[0.4em] mb-8 font-mono italic">TRUSTED BY CANDIDATES AT</p>
           <div className="flex items-center gap-12 md:gap-24 animate-marquee whitespace-nowrap overflow-x-auto no-scrollbar pb-2">
             {[...companies, ...companies].map((c, i) => (
               <div key={i} className="flex-shrink-0 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all cursor-default flex items-center gap-3">
-                 <img src={c.logo} alt={c.name} className="h-6 md:h-8 w-auto filter invert opacity-80" />
-                 <span className="text-lg md:text-xl font-black text-white font-syne uppercase italic tracking-tighter hidden md:block">{c.name}</span>
+                 <img src={c.logo} alt={c.name} className="h-6 md:h-8 w-auto grayscale contrast-125" />
+                 <span className="text-lg md:text-xl font-black text-gray-900 font-syne uppercase italic tracking-tighter hidden md:block">{c.name}</span>
               </div>
             ))}
           </div>

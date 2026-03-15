@@ -41,8 +41,8 @@ export const Navbar = () => {
   return (
     <nav 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-[#0A0A0F]/90 backdrop-blur-xl border-b border-[#1E1E2E] shadow-2xl' : 'bg-transparent'
-      } ${menuOpen ? 'bg-[#0A0A0F] h-screen md:h-auto' : 'h-14 md:h-20'}`}
+        isScrolled ? 'bg-white/90 backdrop-blur-xl border-b border-gray-100 shadow-sm' : 'bg-transparent'
+      } ${menuOpen ? 'bg-white h-screen md:h-auto' : 'h-14 md:h-20'}`}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 h-14 md:h-20 flex items-center justify-between">
         {/* Left: Logo */}
@@ -61,7 +61,7 @@ export const Navbar = () => {
             <Link 
               key={link.name} 
               href={`#${link.id}`}
-              className="text-[11px] font-black text-[#64748B] hover:text-white transition-colors tracking-[0.2em] uppercase font-mono"
+              className="text-[11px] font-black text-gray-500 hover:text-black transition-colors tracking-[0.2em] uppercase font-mono"
             >
               {link.name}
             </Link>
@@ -82,7 +82,7 @@ export const Navbar = () => {
                 <div className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-[#6C3CE1] flex items-center justify-center text-white text-[10px] md:text-xs font-black shadow-[0_0_15px_rgba(108,60,225,0.3)]">
                   {userName[0]}
                 </div>
-                <span className="text-[#E2E8F0] font-black text-xs hidden lg:block uppercase tracking-widest font-mono">{userName}</span>
+                <span className="text-black font-black text-xs hidden lg:block uppercase tracking-widest font-mono">{userName}</span>
               </div>
               <button 
                 onClick={handleLogout}
@@ -95,7 +95,7 @@ export const Navbar = () => {
             <div className="flex items-center gap-4">
               <Link 
                 href="/signin" 
-                className="hidden sm:block text-[11px] font-black text-[#64748B] hover:text-white transition-colors uppercase tracking-widest font-mono"
+                className="hidden sm:block text-[11px] font-black text-gray-500 hover:text-black transition-colors uppercase tracking-widest font-mono"
               >
                 Log In
               </Link>
@@ -125,27 +125,27 @@ export const Navbar = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="md:hidden absolute top-14 left-0 right-0 bg-[#0A0A0F] border-b border-[#1E1E2E] p-6 flex flex-col gap-6 z-40 border-t border-white/5"
+            className="md:hidden absolute top-14 left-0 right-0 bg-white border-b border-gray-100 p-6 flex flex-col gap-6 z-40 border-t border-gray-50"
           >
             {navLinks.map((link) => (
               <Link 
                 key={link.name} 
                 href={`#${link.id}`}
-                className="text-sm font-black text-[#64748B] hover:text-white transition-all tracking-[0.2em] uppercase font-mono flex items-center justify-between group"
+                className="text-sm font-black text-gray-500 hover:text-black transition-all tracking-[0.2em] uppercase font-mono flex items-center justify-between group"
                 onClick={() => setMenuOpen(false)}
               >
                 <span>{link.name}</span>
-                <Rocket size={14} className="opacity-0 group-hover:opacity-100 transition-opacity text-[#6EE7B7]" />
+                <Rocket size={14} className="opacity-0 group-hover:opacity-100 transition-opacity text-[#6C3CE1]" />
               </Link>
             ))}
             {!isLoggedIn && (
                <Link 
                  href="/signin"
-                 className="text-sm font-black text-[#64748B] hover:text-white transition-all tracking-[0.2em] uppercase font-mono flex items-center justify-between group"
+                 className="text-sm font-black text-gray-500 hover:text-black transition-all tracking-[0.2em] uppercase font-mono flex items-center justify-between group"
                  onClick={() => setMenuOpen(false)}
                >
                  <span>Log In</span>
-                 <User size={14} className="opacity-0 group-hover:opacity-100 transition-opacity text-[#6EE7B7]" />
+                 <User size={14} className="opacity-0 group-hover:opacity-100 transition-opacity text-[#6C3CE1]" />
                </Link>
             )}
             <div className="pt-4 border-t border-white/5 mx-[-1.5rem] px-6">

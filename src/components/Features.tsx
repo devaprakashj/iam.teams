@@ -56,11 +56,11 @@ const features = [
 
 export const Features = () => {
   return (
-    <section id="features" className="py-16 md:py-24 bg-[#0A0A0F]">
+    <section id="features" className="py-16 md:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="text-center mb-12 md:mb-20">
-          <h2 className="text-2xl md:text-5xl font-black text-white font-syne uppercase italic tracking-tighter italic leading-tight">Everything inside <br className="md:hidden" /> your profile</h2>
-          <p className="mt-4 md:mt-6 text-[10px] md:text-[11px] text-[#64748B] font-black uppercase tracking-[0.2em] md:tracking-[0.3em] font-mono italic">// ONE_MANIFEST. INFINITE_POSSIBILITIES.</p>
+          <h2 className="text-2xl md:text-5xl font-black text-gray-900 font-syne uppercase italic tracking-tighter italic leading-tight">Everything inside <br className="md:hidden" /> your profile</h2>
+          <p className="mt-4 md:mt-6 text-[10px] md:text-[11px] text-gray-400 font-black uppercase tracking-[0.2em] md:tracking-[0.3em] font-mono italic">// ONE_MANIFEST. INFINITE_POSSIBILITIES.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -71,13 +71,13 @@ export const Features = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="p-8 md:p-10 bg-[#111118] rounded-2xl border border-[#1E1E2E] hover:border-[#6C3CE1]/30 transition-all duration-300 shadow-2xl group"
+              className="p-8 md:p-10 bg-gray-50 rounded-2xl border border-gray-100 hover:border-[#6C3CE1]/30 transition-all duration-300 shadow-xl group"
             >
               <div className={`w-12 h-12 md:w-14 md:h-14 ${f.bgColor} ${f.borderColor} border rounded-xl flex items-center justify-center mb-6 md:mb-8 group-hover:scale-110 transition-transform`}>
                 <f.icon className={`w-6 h-6 md:w-7 md:h-7 ${f.color}`} />
               </div>
-              <h3 className="text-lg md:text-xl font-black text-white mb-3 md:mb-4 font-syne uppercase italic italic leading-none">{f.title}</h3>
-              <p className="text-xs md:text-[13px] text-[#64748B] leading-relaxed font-medium">
+              <h3 className="text-lg md:text-xl font-black text-gray-900 mb-3 md:mb-4 font-syne uppercase italic italic leading-none">{f.title}</h3>
+              <p className="text-xs md:text-[13px] text-gray-500 leading-relaxed font-medium">
                 {f.desc}
               </p>
             </motion.div>

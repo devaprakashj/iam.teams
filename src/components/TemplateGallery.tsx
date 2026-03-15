@@ -310,19 +310,19 @@ export const TemplateGallery = () => {
   };
 
   return (
-    <section id="templates" className="relative overflow-hidden pt-20 md:pt-32 pb-24 md:pb-40 bg-[#0A0A0F]">
+    <section id="templates" className="relative overflow-hidden pt-20 md:pt-32 pb-24 md:pb-40 bg-white">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-20 px-6 md:px-12 gap-8">
         <div className="max-w-3xl">
-          <h3 className="text-[32px] sm:text-[42px] md:text-[64px] font-black text-white font-syne uppercase italic tracking-tighter leading-[0.9] sm:leading-none">
+          <h3 className="text-[32px] sm:text-[42px] md:text-[64px] font-black text-gray-900 font-syne uppercase italic tracking-tighter leading-[0.9] sm:leading-none">
             ⭐ PREMIUM TEMPLATES
           </h3>
-          <p className="text-[#64748B] font-black mt-4 md:mt-6 uppercase tracking-[0.3em] font-mono text-[10px] md:text-[12px] leading-relaxed max-w-xl italic">
+          <p className="text-gray-400 font-black mt-4 md:mt-6 uppercase tracking-[0.3em] font-mono text-[10px] md:text-[12px] leading-relaxed max-w-xl italic">
             PICK YOUR VIBE. TRANSFORM YOUR PROFESSIONAL WORLD. ALL TEMPLATES ATS CO-PROCESSOR READY.
           </p>
         </div>
         <div className="flex gap-4 self-end md:self-auto">
-          <button onClick={() => scroll('left')} className="p-5 md:p-6 rounded-full border border-[#1E1E2E] bg-[#111118] text-[#6EE7B7] hover:bg-[#6C3CE1] hover:text-white transition-all shadow-2xl active:scale-95 group"><ChevronLeft size={24} className="group-hover:scale-110" /></button>
-          <button onClick={() => scroll('right')} className="p-5 md:p-6 rounded-full border border-[#1E1E2E] bg-[#111118] text-[#6EE7B7] hover:bg-[#6C3CE1] hover:text-white transition-all shadow-2xl active:scale-95 group"><ChevronRight size={24} className="group-hover:scale-110" /></button>
+          <button onClick={() => scroll('left')} className="p-5 md:p-6 rounded-full border border-gray-100 bg-gray-50 text-gray-400 hover:bg-[#6C3CE1] hover:text-white transition-all shadow-xl active:scale-95 group"><ChevronLeft size={24} className="group-hover:scale-110" /></button>
+          <button onClick={() => scroll('right')} className="p-5 md:p-6 rounded-full border border-gray-100 bg-gray-50 text-gray-400 hover:bg-[#6C3CE1] hover:text-white transition-all shadow-xl active:scale-95 group"><ChevronRight size={24} className="group-hover:scale-110" /></button>
         </div>
       </div>
 
@@ -337,7 +337,7 @@ export const TemplateGallery = () => {
             key={index}
             className="flex-shrink-0 w-[85vw] sm:w-[320px] lg:w-[300px] xl:w-[280px] group snap-center"
           >
-            <div className="relative h-[480px] md:h-[500px] rounded-[24px] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.6)] border border-[#1E1E2E] bg-white transition-all duration-500 group-hover:scale-[1.03] group-hover:translate-y-[-8px] group-hover:shadow-[0_40px_80px_rgba(108,60,225,0.2)]">
+            <div className="relative h-[480px] md:h-[500px] rounded-[24px] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-gray-100 bg-white transition-all duration-500 group-hover:scale-[1.03] group-hover:translate-y-[-8px] group-hover:shadow-[0_40px_80px_rgba(108,60,225,0.1)]">
               {renderLayout(template.id)}
               
               <div className={`absolute top-6 left-6 px-4 py-1.5 font-black text-[9px] uppercase rounded-full shadow-2xl ${template.badgeColor} z-20 tracking-widest italic`}>
@@ -353,8 +353,8 @@ export const TemplateGallery = () => {
             </div>
 
             <div className="mt-8 text-center space-y-2">
-              <h4 className="text-[14px] font-black text-white uppercase tracking-[0.3em] font-mono italic opacity-80 group-hover:opacity-100 transition-opacity">{template.name.toUpperCase()}</h4>
-              <p className="text-[10px] font-black text-[#6EE7B7] uppercase tracking-[0.3em] font-mono italic bg-[#6EE7B7]/10 inline-block px-3 py-1 rounded-full border border-[#6EE7B7]/20">ATS_NODE: {template.score}/100</p>
+              <h4 className="text-[14px] font-black text-gray-900 uppercase tracking-[0.3em] font-mono italic opacity-60 group-hover:opacity-100 transition-opacity">{template.name.toUpperCase()}</h4>
+              <p className="text-[10px] font-black text-[#6C3CE1] uppercase tracking-[0.3em] font-mono italic bg-[#6C3CE1]/10 inline-block px-3 py-1 rounded-full border border-[#6C3CE1]/20">ATS_NODE: {template.score}/100</p>
             </div>
           </motion.div>
         ))}
@@ -363,7 +363,7 @@ export const TemplateGallery = () => {
       {/* Progress indicators */}
       <div className="flex justify-center gap-4 mt-8 md:mt-12">
         {Array.from({ length: Math.ceil(templates.length / 1) }).map((_, i) => (
-          <div key={i} className={`h-1.5 rounded-full transition-all duration-500 ${activeIndex === i ? 'w-12 bg-[#6EE7B7]' : 'w-2 bg-[#64748B]/30'}`} />
+          <div key={i} className={`h-1.5 rounded-full transition-all duration-500 ${activeIndex === i ? 'w-12 bg-[#6C3CE1]' : 'w-2 bg-gray-200'}`} />
         ))}
       </div>
     </section>

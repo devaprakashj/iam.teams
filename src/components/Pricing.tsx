@@ -29,23 +29,23 @@ export const Pricing = () => {
   const [isAnnual, setIsAnnual] = React.useState(true);
 
   return (
-    <section id="pricing" className="py-16 md:py-24 bg-[#0A0A0F]">
+    <section id="pricing" className="py-16 md:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6 md:px-12 text-center">
-        <h2 className="text-2xl md:text-6xl font-black text-white font-syne uppercase italic tracking-tighter italic leading-tight">7 days free. <br className="md:hidden" /> Then choose.</h2>
-        <p className="mt-4 text-[9px] md:text-[11px] text-[#64748B] font-black uppercase tracking-[0.2em] md:tracking-[0.3em] font-mono italic">// NO_CREDIT_CARD_REQUIRED · CANCEL_ANYTIME</p>
+        <h2 className="text-2xl md:text-6xl font-black text-gray-900 font-syne uppercase italic tracking-tighter italic leading-tight">7 days free. <br className="md:hidden" /> Then choose.</h2>
+        <p className="mt-4 text-[9px] md:text-[11px] text-gray-400 font-black uppercase tracking-[0.2em] md:tracking-[0.3em] font-mono italic">// NO_CREDIT_CARD_REQUIRED · CANCEL_ANYTIME</p>
         
         {/* Toggle Bar */}
         <div className="mt-10 md:mt-16 flex flex-col sm:flex-row items-center justify-center gap-4">
-           <div className="bg-[#111118] p-1 rounded-full border border-[#1E1E2E] flex items-center relative">
+           <div className="bg-gray-50 p-1 rounded-full border border-gray-100 flex items-center relative">
               <button 
                 onClick={() => setIsAnnual(false)}
-                className={`relative z-10 px-6 md:px-8 py-2 md:py-2.5 rounded-full font-mono text-[9px] md:text-[11px] font-black uppercase tracking-widest transition-all ${!isAnnual ? 'text-white' : 'text-[#64748B]'}`}
+                className={`relative z-10 px-6 md:px-8 py-2 md:py-2.5 rounded-full font-mono text-[9px] md:text-[11px] font-black uppercase tracking-widest transition-all ${!isAnnual ? 'text-white' : 'text-gray-400'}`}
               >
                 Monthly
               </button>
               <button 
                 onClick={() => setIsAnnual(true)}
-                className={`relative z-10 px-6 md:px-8 py-2 md:py-2.5 rounded-full font-mono text-[9px] md:text-[11px] font-black uppercase tracking-widest transition-all ${isAnnual ? 'text-white' : 'text-[#64748B]'}`}
+                className={`relative z-10 px-6 md:px-8 py-2 md:py-2.5 rounded-full font-mono text-[9px] md:text-[11px] font-black uppercase tracking-widest transition-all ${isAnnual ? 'text-white' : 'text-gray-400'}`}
               >
                 Annual
               </button>
@@ -65,7 +65,7 @@ export const Pricing = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className={`p-8 md:p-10 rounded-2xl bg-[#111118] border-2 border-[#6C3CE1] flex flex-col items-start text-left relative transition-all duration-300 hover:shadow-2xl hover:scale-[1.01]`}
+            className={`p-8 md:p-10 rounded-2xl bg-gray-50 border-2 border-[#6C3CE1] flex flex-col items-start text-left relative transition-all duration-300 hover:shadow-2xl hover:scale-[1.01]`}
           >
             <div className="absolute top-0 right-6 md:right-10 -translate-y-1/2 bg-[#6C3CE1] text-white px-3 md:px-4 py-1 font-black text-[8px] md:text-[9px] uppercase tracking-widest rounded-full shadow-lg font-mono italic">
                ⭐ MOST POPULAR
@@ -74,11 +74,11 @@ export const Pricing = () => {
             <div className="mb-8 md:mb-10 w-full">
               <p className="text-[9px] md:text-[10px] font-black text-[#6C3CE1] uppercase tracking-[0.3em] font-mono mb-4 md:mb-6">PRO</p>
               <div className="flex items-baseline gap-1">
-                 <p className="text-lg md:text-xl font-black text-white tracking-widest font-mono">₹</p>
-                 <p className="text-4xl md:text-6xl font-black text-white tracking-tighter font-syne italic">{isAnnual ? PRICING.pro.annual : PRICING.pro.monthly}</p>
-                 <span className="text-[#64748B] font-black text-xs md:text-sm uppercase font-mono">/{isAnnual ? 'yr' : 'mo'}</span>
+                 <p className="text-lg md:text-xl font-black text-gray-900 tracking-widest font-mono">₹</p>
+                 <p className="text-4xl md:text-6xl font-black text-gray-900 tracking-tighter font-syne italic">{isAnnual ? PRICING.pro.annual : PRICING.pro.monthly}</p>
+                 <span className="text-gray-400 font-black text-xs md:text-sm uppercase font-mono">/{isAnnual ? 'yr' : 'mo'}</span>
               </div>
-              <p className="mt-2 text-[9px] md:text-[10px] font-bold text-[#64748B] uppercase tracking-wide font-mono italic leading-relaxed">
+              <p className="mt-2 text-[9px] md:text-[10px] font-bold text-gray-400 uppercase tracking-wide font-mono italic leading-relaxed">
                 {isAnnual 
                   ? `// ₹${PRICING.pro.monthly_if_annual}/MONTH · BILLED ANNUALLY` 
                   : `// BILLED MONTHLY · CANCEL ANYTIME`}
@@ -88,7 +88,7 @@ export const Pricing = () => {
                   <div className="inline-flex self-start px-2 py-1 bg-[#6EE7B7]/10 border border-[#6EE7B7]/20 rounded text-[8px] font-black text-[#6EE7B7] uppercase tracking-widest font-mono">
                     YOU SAVE ₹{PRICING.pro.savings_annual}
                   </div>
-                  <button onClick={() => setIsAnnual(false)} className="text-[8px] md:text-[9px] text-left font-black text-[#64748B] uppercase tracking-widest font-mono hover:text-white transition-colors">
+                  <button onClick={() => setIsAnnual(false)} className="text-[8px] md:text-[9px] text-left font-black text-gray-400 uppercase tracking-widest font-mono hover:text-gray-900 transition-colors">
                     Or ₹{PRICING.pro.monthly}/mo billed monthly
                   </button>
                 </div>
@@ -126,21 +126,21 @@ export const Pricing = () => {
           </motion.div>
 
           {/* PREMIUM CARD */}
-          <motion.div
+           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className={`p-8 md:p-10 rounded-2xl bg-[#111118] border-2 border-[#1E1E2E] flex flex-col items-start text-left relative transition-all duration-300 hover:shadow-2xl hover:scale-[1.01]`}
+            className={`p-8 md:p-10 rounded-2xl bg-gray-50 border-2 border-gray-100 flex flex-col items-start text-left relative transition-all duration-300 hover:shadow-2xl hover:scale-[1.01]`}
           >
             <div className="mb-8 md:mb-10 w-full">
-              <p className="text-[9px] md:text-[10px] font-black text-[#64748B] uppercase tracking-[0.3em] font-mono mb-4 md:mb-6 italic">PREMIUM</p>
+              <p className="text-[9px] md:text-[10px] font-black text-gray-400 uppercase tracking-[0.3em] font-mono mb-4 md:mb-6 italic">PREMIUM</p>
               <div className="flex items-baseline gap-1">
-                 <p className="text-lg md:text-xl font-black text-white tracking-widest font-mono">₹</p>
-                 <p className="text-4xl md:text-6xl font-black text-white tracking-tighter font-syne italic">{PRICING.premium.annual}</p>
-                 <span className="text-[#64748B] font-black text-xs md:text-sm uppercase font-mono">/yr</span>
+                 <p className="text-lg md:text-xl font-black text-gray-900 tracking-widest font-mono">₹</p>
+                 <p className="text-4xl md:text-6xl font-black text-gray-900 tracking-tighter font-syne italic">{PRICING.premium.annual}</p>
+                 <span className="text-gray-400 font-black text-xs md:text-sm uppercase font-mono">/yr</span>
               </div>
-              <p className="mt-2 text-[9px] md:text-[10px] font-bold text-[#64748B] uppercase tracking-wide font-mono italic leading-relaxed">// THE_ULTIMATE_CAREER_MANIFEST</p>
+              <p className="mt-2 text-[9px] md:text-[10px] font-bold text-gray-400 uppercase tracking-wide font-mono italic leading-relaxed">// THE_ULTIMATE_CAREER_MANIFEST</p>
               <div className="inline-flex mt-4 px-2 py-1 bg-[#6EE7B7]/10 border border-[#6EE7B7]/20 rounded text-[8px] font-black text-[#6EE7B7] uppercase tracking-widest font-mono">
                 7-day free trial included
               </div>
@@ -179,12 +179,12 @@ export const Pricing = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-[#111118] border-2 border-[#1E1E2E] rounded-2xl p-8 md:p-10 max-w-5xl mx-auto flex flex-col md:flex-row gap-6 md:gap-8 items-center text-left"
+          className="bg-gray-50 border-2 border-gray-100 rounded-2xl p-8 md:p-10 max-w-5xl mx-auto flex flex-col md:flex-row gap-6 md:gap-8 items-center text-left"
         >
           <div className="flex-1 space-y-3 md:space-y-4">
              <p className="text-[9px] md:text-[10px] font-black text-[#FF6B35] uppercase tracking-[0.3em] font-mono italic">COLLEGE PLAN</p>
-             <h3 className="text-2xl md:text-3xl font-black font-syne text-white uppercase italic tracking-tighter italic">FOR INSTITUTIONS</h3>
-             <p className="text-[10px] md:text-[12px] font-bold text-[#64748B] uppercase tracking-widest font-mono">Starting ₹2L/year · Batch access</p>
+             <h3 className="text-2xl md:text-3xl font-black font-syne text-gray-900 uppercase italic tracking-tighter italic">FOR INSTITUTIONS</h3>
+             <p className="text-[10px] md:text-[12px] font-bold text-gray-400 uppercase tracking-widest font-mono">Starting ₹2L/year · Batch access</p>
              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 md:gap-y-3 pt-2 md:pt-4">
                 {[
                   "Unlimited profiles", "Officer dashboard",
@@ -204,14 +204,14 @@ export const Pricing = () => {
         {/* FAQ Section */}
         <div className="mt-20 md:mt-32 space-y-12 md:space-y-16">
           <div className="text-center space-y-4">
-            <h2 className="text-2xl md:text-5xl font-black text-white font-syne uppercase italic tracking-tighter italic font-syne leading-tight">Common Questions</h2>
-            <p className="text-[9px] md:text-[11px] text-[#64748B] font-black uppercase tracking-[0.2em] md:tracking-[0.3em] font-mono italic">// GRID_OPERATIONAL_DATA</p>
+            <h2 className="text-2xl md:text-5xl font-black text-gray-900 font-syne uppercase italic tracking-tighter italic font-syne leading-tight">Common Questions</h2>
+            <p className="text-[9px] md:text-[11px] text-gray-400 font-black uppercase tracking-[0.2em] md:tracking-[0.3em] font-mono italic">// GRID_OPERATIONAL_DATA</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 max-w-5xl mx-auto">
              {faqs.map((faq, i) => (
-               <div key={i} className="p-6 md:p-8 bg-[#111118] border border-[#1E1E2E] rounded-2xl text-left space-y-3 md:space-y-4 hover:border-[#6C3CE1] transition-all group">
-                  <h4 className="text-[11px] md:text-[13px] font-black text-white font-mono uppercase tracking-widest group-hover:text-[#6C3CE1] transition-colors">{faq.q}</h4>
-                  <p className="text-[10px] md:text-[11px] font-bold text-[#64748B] leading-relaxed uppercase tracking-tight">{faq.a}</p>
+               <div key={i} className="p-6 md:p-8 bg-gray-50 border border-gray-100 rounded-2xl text-left space-y-3 md:space-y-4 hover:border-[#6C3CE1] transition-all group">
+                  <h4 className="text-[11px] md:text-[13px] font-black text-gray-900 font-mono uppercase tracking-widest group-hover:text-[#6C3CE1] transition-colors">{faq.q}</h4>
+                  <p className="text-[10px] md:text-[11px] font-bold text-gray-400 leading-relaxed uppercase tracking-tight">{faq.a}</p>
                </div>
              ))}
           </div>

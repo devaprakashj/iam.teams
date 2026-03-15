@@ -7,22 +7,22 @@ export const ProfilePreview = () => {
   const [view, setView] = useState<'desktop' | 'mobile'>('desktop');
 
   return (
-    <section id="preview" className="py-16 md:py-24 bg-[#0A0A0F] overflow-hidden">
+    <section id="preview" className="py-16 md:py-24 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 md:px-12 text-center mb-10 md:mb-16">
-        <h2 className="text-2xl md:text-5xl font-black text-white font-syne uppercase italic tracking-tighter italic leading-tight">One profile for recruiters to love</h2>
-        <p className="mt-4 md:mt-6 text-[10px] md:text-[11px] text-[#64748B] font-black uppercase tracking-[0.2em] md:tracking-[0.3em] font-mono">Your iamfolio page is optimized for human reading and ATS systems.</p>
+        <h2 className="text-2xl md:text-5xl font-black text-gray-900 font-syne uppercase italic tracking-tighter italic leading-tight">One profile for recruiters to love</h2>
+        <p className="mt-4 md:mt-6 text-[10px] md:text-[11px] text-gray-400 font-black uppercase tracking-[0.2em] md:tracking-[0.3em] font-mono">Your iamfolio page is optimized for human reading and ATS systems.</p>
         
         {/* Toggle Controls */}
-        <div className="mt-10 md:mt-12 inline-flex p-1 bg-[#111118] border border-[#1E1E2E] rounded-xl shadow-2xl">
+        <div className="mt-10 md:mt-12 inline-flex p-1 bg-gray-50 border border-gray-100 rounded-xl shadow-lg">
           <button 
             onClick={() => setView('desktop')}
-            className={`flex items-center gap-2 px-6 md:px-8 py-2 md:py-3 rounded-lg font-black text-[9px] md:text-[10px] uppercase tracking-widest transition-all font-mono ${view === 'desktop' ? 'bg-[#6C3CE1] text-white shadow-[0_0_20px_rgba(108,60,225,0.3)]' : 'text-[#64748B] hover:text-white'}`}
+            className={`flex items-center gap-2 px-6 md:px-8 py-2 md:py-3 rounded-lg font-black text-[9px] md:text-[10px] uppercase tracking-widest transition-all font-mono ${view === 'desktop' ? 'bg-[#6C3CE1] text-white shadow-[0_10px_20px_rgba(108,60,225,0.2)]' : 'text-gray-400 hover:text-gray-900'}`}
           >
             <Monitor className="w-4 h-4" /> <span className="hidden sm:inline">Desktop</span>
           </button>
           <button 
             onClick={() => setView('mobile')}
-            className={`flex items-center gap-2 px-6 md:px-8 py-2 md:py-3 rounded-lg font-black text-[9px] md:text-[10px] uppercase tracking-widest transition-all font-mono ${view === 'mobile' ? 'bg-[#6C3CE1] text-white shadow-[0_0_20px_rgba(108,60,225,0.3)]' : 'text-[#64748B] hover:text-white'}`}
+            className={`flex items-center gap-2 px-6 md:px-8 py-2 md:py-3 rounded-lg font-black text-[9px] md:text-[10px] uppercase tracking-widest transition-all font-mono ${view === 'mobile' ? 'bg-[#6C3CE1] text-white shadow-[0_10px_20px_rgba(108,60,225,0.2)]' : 'text-gray-400 hover:text-gray-900'}`}
           >
             <Smartphone className="w-4 h-4" /> <span className="hidden sm:inline">Mobile</span>
           </button>
@@ -38,21 +38,21 @@ export const ProfilePreview = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.4 }}
-              className="w-full origin-top scale-[0.6] sm:scale-[0.8] md:scale-100 bg-[#111118] rounded-t-3xl shadow-[0_40px_100px_rgba(0,0,0,0.5)] border border-[#1E1E2E] overflow-hidden flex flex-col"
+              className="w-full origin-top scale-[0.6] sm:scale-[0.8] md:scale-100 bg-white rounded-t-3xl shadow-[0_40px_100px_rgba(0,0,0,0.1)] border border-gray-100 overflow-hidden flex flex-col"
             >
               {/* Browser Bar */}
-              <div className="bg-[#0D0D14] border-b border-[#1E1E2E] px-4 md:px-6 py-2 md:py-4 flex items-center gap-4 md:gap-6">
+              <div className="bg-gray-50 border-b border-gray-100 px-4 md:px-6 py-2 md:py-4 flex items-center gap-4 md:gap-6">
                 <div className="flex gap-1 md:gap-2">
-                  <div className="w-2.5 h-2.5 md:w-3.5 md:h-3.5 rounded-full bg-[#EF4444]/40 border border-[#EF4444]/20"></div>
-                  <div className="w-2.5 h-2.5 md:w-3.5 md:h-3.5 rounded-full bg-[#F59E0B]/40 border border-[#F59E0B]/20"></div>
-                  <div className="w-2.5 h-2.5 md:w-3.5 md:h-3.5 rounded-full bg-[#10B981]/40 border border-[#10B981]/20"></div>
+                  <div className="w-2.5 h-2.5 md:w-3.5 md:h-3.5 rounded-full bg-red-400"></div>
+                  <div className="w-2.5 h-2.5 md:w-3.5 md:h-3.5 rounded-full bg-yellow-400"></div>
+                  <div className="w-2.5 h-2.5 md:w-3.5 md:h-3.5 rounded-full bg-green-400"></div>
                 </div>
-                <div className="flex-1 bg-[#1E1E2E] border border-white/5 rounded-lg px-2 md:px-4 py-1 md:py-2 text-[9px] md:text-[11px] text-[#64748B] text-left flex items-center gap-2 md:gap-3 font-mono">
-                  <Globe className="w-3 h-3 md:w-4 md:h-4 text-[#6EE7B7]" />
-                  <span className="text-white/20 italic hidden sm:inline">https://</span>
-                  <span className="text-[#E2E8F0]">iamfolio.in/{'{'}username{'}'}</span>
+                <div className="flex-1 bg-gray-100 border border-black/5 rounded-lg px-2 md:px-4 py-1 md:py-2 text-[9px] md:text-[11px] text-gray-500 text-left flex items-center gap-2 md:gap-3 font-mono">
+                  <Globe className="w-3 h-3 md:w-4 md:h-4 text-[#6C3CE1]" />
+                  <span className="text-gray-300 italic hidden sm:inline">https://</span>
+                  <span className="text-gray-900">iamfolio.in/{'{'}username{'}'}</span>
                 </div>
-                <MoreHorizontal className="w-5 h-5 md:w-6 md:h-6 text-[#1E1E2E]" />
+                <MoreHorizontal className="w-5 h-5 md:w-6 md:h-6 text-gray-200" />
               </div>
 
               {/* Profile Content */}
@@ -111,10 +111,10 @@ export const ProfilePreview = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 40 }}
               transition={{ duration: 0.4 }}
-              className="relative w-[280px] sm:w-[320px] h-[560px] sm:h-[640px] bg-[#111118] rounded-[48px] border-[12px] border-[#0D0D14] shadow-[0_50px_100px_rgba(0,0,0,0.6)] overflow-hidden scale-[0.8] sm:scale-100 origin-top"
+              className="relative w-[280px] sm:w-[320px] h-[560px] sm:h-[640px] bg-white rounded-[48px] border-[12px] border-gray-900 shadow-[0_50px_100px_rgba(0,0,0,0.2)] overflow-hidden scale-[0.8] sm:scale-100 origin-top"
             >
               {/* iPhone Notch */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-36 h-8 bg-[#0D0D14] rounded-b-3xl z-30 flex items-end justify-center pb-2">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-36 h-8 bg-gray-900 rounded-b-3xl z-30 flex items-end justify-center pb-2">
                  <div className="w-12 h-1 bg-white/10 rounded-full"></div>
               </div>
               
@@ -154,7 +154,7 @@ export const ProfilePreview = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 mt-16 text-center">
-         <p className="text-[12px] font-black text-[#6EE7B7] uppercase tracking-[0.4em] font-mono italic">"Recruiters are 3x more likely to view your manifest if shared via link."</p>
+         <p className="text-[12px] font-black text-[#6C3CE1] uppercase tracking-[0.4em] font-mono italic">"Recruiters are 3x more likely to view your manifest if shared via link."</p>
       </div>
     </section>
   );
