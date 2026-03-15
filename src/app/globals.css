@@ -5,15 +5,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
 :root {
-  --bg: #0A0A0F;
-  --card: #111118;
-  --border: #1E1E2E;
+  --bg: #FFFFFF;
+  --card: #F8FAFC;
+  --border: #F1F5F9;
   --purple: #6C3CE1;
-  --green: #6EE7B7;
+  --green: #10B981;
   --orange: #FF6B35;
-  --blue: #60A5FA;
-  --yellow: #FBBF24;
-  --text: #E2E8F0;
+  --blue: #3B82F6;
+  --yellow: #F59E0B;
+  --text: #0F172A;
   --muted: #64748B;
   
   --background: var(--bg);
