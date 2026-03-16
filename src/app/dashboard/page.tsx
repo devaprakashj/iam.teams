@@ -58,12 +58,12 @@ const navItems = [
   ]},
   { group: 'TOOLS', items: [
     { icon: FileText, label: 'Resume Builder', href: '/resume-builder' },
-    { icon: Mic, label: 'Mock Interview', href: '/mock-interview' },
+    { icon: Mic, label: 'Mock Interview', href: '/mock-interviews' },
     { icon: Search, label: 'Job Matches', href: '/jobs' },
-    { icon: Zap, label: 'Skill Analysis', href: '/skills' }
+    { icon: Zap, label: 'Skill Analysis', href: '/analysis' }
   ]},
   { group: 'ACCOUNT', items: [
-    { icon: BarChart3, label: 'Analytics', href: '/analytics', badge: 'PRO' },
+    { icon: BarChart3, label: 'Analytics', href: '/dashboard/analytics', badge: 'PRO' },
     { icon: Settings, label: 'Settings', href: '/settings' },
     { icon: CreditCard, label: 'Upgrade to Pro', href: '/upgrade', color: COLORS.orange }
   ]}
@@ -128,23 +128,53 @@ const ProgressBar = ({ value, color, label, showPercent = true }: any) => (
 
 // --- Main Page ---
 
-export default function Dashboard() {
+import { useSearchParams, usePathname } from 'next/navigation';
+import { Suspense } from 'react';
+
+function DashboardContent() {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
   const [greeting, setGreeting] = useState('');
   const [copyStatus, setCopyStatus] = useState('Copy Link');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Mobile hidden by default
   const [userPlan, setUserPlan] = useState('free'); // 'free' or 'pro'
 
   useEffect(() => {
+    // Load persisted plan
+    const savedPlan = localStorage.getItem('userPlan');
+    if (savedPlan) setUserPlan(savedPlan);
+
     const hour = new Date().getHours();
     if (hour < 12) setGreeting('Good morning');
     else if (hour < 17) setGreeting('Good afternoon');
     else setGreeting('Good evening');
     
-    // Auto open sidebar on desktop
-    if (window.innerWidth >= 1024) {
-      setIsSidebarOpen(true);
+    // Check for upgraded status
+    if (searchParams.get('upgraded') === 'true') {
+      setUserPlan('pro');
+      localStorage.setItem('userPlan', 'pro');
     }
-  }, []);
+
+    // Auto open sidebar on desktop
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) setIsSidebarOpen(true);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [searchParams]);
+
+  // Dynamically update nav items based on plan
+  const filteredNavItems = navItems.map(group => ({
+    ...group,
+    items: group.items.filter(item => {
+      if (item.label === 'Upgrade to Pro' && userPlan === 'pro') return false;
+      return true;
+    }).map(item => ({
+      ...item,
+      active: pathname === item.href
+    }))
+  }));
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText('iamfolio.in/devaprakash');
@@ -184,7 +214,7 @@ export default function Dashboard() {
               </div>
 
               <nav className="flex-1 px-4 space-y-8 mt-4 overflow-y-auto custom-scrollbar">
-                {navItems.map((group, idx) => (
+                {filteredNavItems.map((group, idx) => (
                   <div key={idx} className="space-y-2">
                     <h5 className="px-4 text-[10px] font-bold text-white/20 uppercase tracking-[0.3em] mb-4">{group.group}</h5>
                     <div className="space-y-1">
@@ -204,7 +234,9 @@ export default function Dashboard() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
                       <p className="text-xs font-bold truncate">Devaprakash</p>
-                      <span className="px-1 py-0.5 bg-[#6EE7B7]/10 text-[#6EE7B7] text-[7px] font-black rounded uppercase">FREE</span>
+                      <span className={`px-1 py-0.5 ${userPlan === 'pro' ? 'bg-[#6C3CE1]/10 text-[#6C3CE1]' : 'bg-[#6EE7B7]/10 text-[#6EE7B7]'} text-[7px] font-black rounded uppercase`}>
+                        {userPlan === 'pro' ? 'PRO' : 'FREE'}
+                      </span>
                     </div>
                     <p className="text-[9px] text-[#64748B] font-mono truncate">iamfolio.in/deva</p>
                   </div>
@@ -252,9 +284,11 @@ export default function Dashboard() {
                 </span>
               </div>
             </div>
-            <button className="px-4 md:px-6 py-2 bg-[#FF6B35] text-white text-[9px] md:text-[10px] font-black uppercase tracking-widest rounded-full hover:bg-[#FF6B35]/80 transition-all shadow-[0_4px_20px_rgba(255,107,53,0.3)] shrink-0">
-              Share <span className="hidden sm:inline">Profile</span> ↗
-            </button>
+            <Link href="/profile">
+              <button className="px-4 md:px-6 py-2 bg-[#FF6B35] text-white text-[9px] md:text-[10px] font-black uppercase tracking-widest rounded-full hover:bg-[#FF6B35]/80 transition-all shadow-[0_4px_20px_rgba(255,107,53,0.3)] shrink-0">
+                Share <span className="hidden sm:inline">Profile</span> ↗
+              </button>
+            </Link>
           </div>
         </header>
 
@@ -277,7 +311,9 @@ export default function Dashboard() {
               </div>
               <div className="flex items-center gap-3 w-full md:w-auto">
                 <button className="flex-1 md:flex-none text-[9px] md:text-[10px] font-black uppercase tracking-widest text-[#64748B] hover:text-[#E2E8F0] px-4 py-2 bg-[#111118] md:bg-transparent border border-[#1E1E2E] md:border-none rounded-lg">Dismiss</button>
-                <button className="flex-[2] md:flex-none px-6 py-2.5 bg-[#FF6B35] text-white text-[9px] md:text-[10px] font-black uppercase tracking-widest rounded-lg hover:shadow-lg transition-all shadow-lg active:scale-95">Upgrade →</button>
+                <Link href="/upgrade">
+                  <button className="flex-[2] md:flex-none px-6 py-2.5 bg-[#FF6B35] text-white text-[9px] md:text-[10px] font-black uppercase tracking-widest rounded-lg hover:shadow-lg transition-all shadow-lg active:scale-95">Upgrade →</button>
+                </Link>
               </div>
             </motion.div>
           )}
@@ -406,9 +442,11 @@ export default function Dashboard() {
                  ))}
               </div>
 
-              <button className="w-full py-4 bg-[#6C3CE1] text-white text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] rounded-lg hover:shadow-xl transition-all shadow-[0_4px_20_rgba(108,60,225,0.2)] active:scale-95 text-center">
-                Recommendations →
-              </button>
+                <Link href="/skills">
+                  <button className="w-full py-4 bg-[#6C3CE1] text-white text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] rounded-lg hover:shadow-xl transition-all shadow-[0_4px_20_rgba(108,60,225,0.2)] active:scale-95 text-center">
+                    Recommendations →
+                  </button>
+                </Link>
             </div>
           </section>
 
@@ -519,7 +557,9 @@ export default function Dashboard() {
                          <p className="text-[10px] md:text-xs font-black text-white uppercase tracking-tight italic">Activity Locked</p>
                          <p className="text-[8px] md:text-[9px] text-[#64748B] font-bold uppercase tracking-widest leading-tight">Upgrade to see companies.</p>
                       </div>
-                      <button className="px-5 py-2.5 bg-[#FF6B35] text-white text-[8px] md:text-[9px] font-black uppercase tracking-widest rounded-lg shadow-lg active:scale-95">Upgrade Pro</button>
+                      <Link href="/upgrade?feature=analytics">
+                        <button className="px-5 py-2.5 bg-[#FF6B35] text-white text-[8px] md:text-[9px] font-black uppercase tracking-widest rounded-lg shadow-lg active:scale-95">Upgrade Pro</button>
+                      </Link>
                    </div>
                  )}
                  <h3 className="text-base md:text-lg font-black font-syne uppercase tracking-tight italic">Analytics</h3>
@@ -560,5 +600,20 @@ export default function Dashboard() {
         }
       `}</style>
     </div>
+  );
+}
+
+export default function Dashboard() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#0A0A0F] flex items-center justify-center font-mono text-[#6C3CE1]">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-12 h-12 border-4 border-[#6C3CE1] border-t-transparent rounded-full animate-spin" />
+          <p className="text-[10px] font-black uppercase tracking-[0.3em] animate-pulse">// LOADING_SECURE_SHELL</p>
+        </div>
+      </div>
+    }>
+      <DashboardContent />
+    </Suspense>
   );
 }

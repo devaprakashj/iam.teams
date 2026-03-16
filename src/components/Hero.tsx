@@ -16,12 +16,12 @@ export const Hero = () => {
   };
 
   const companies = [
-    { name: 'Zoho', logo: 'https://upload.wikimedia.org/wikipedia/commons/e/ea/Zoho_Corporation_Logo.svg' },
-    { name: 'Freshworks', logo: 'https://upload.wikimedia.org/wikipedia/commons/e/e5/Freshworks_Logo.svg' },
-    { name: 'TCS', logo: 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Tata_Consultancy_Services_Logo.svg' },
-    { name: 'Infosys', logo: 'https://upload.wikimedia.org/wikipedia/commons/9/95/Infosys_logo.svg' },
-    { name: 'HCL', logo: 'https://upload.wikimedia.org/wikipedia/commons/0/03/HCL_Technologies_logo.svg' },
-    { name: 'Amazon', logo: 'https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg' }
+    { name: 'Zoho', logo: 'https://logo.clearbit.com/zoho.com' },
+    { name: 'Freshworks', logo: 'https://logo.clearbit.com/freshworks.com' },
+    { name: 'TCS', logo: 'https://logo.clearbit.com/tcs.com' },
+    { name: 'Infosys', logo: 'https://logo.clearbit.com/infosys.com' },
+    { name: 'HCL', logo: 'https://logo.clearbit.com/hcltech.com' },
+    { name: 'Amazon', logo: 'https://logo.clearbit.com/amazon.com' }
   ];
 
   return (

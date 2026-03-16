@@ -3,6 +3,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import PaymentButton from './PaymentButton';
 
 import { PRICING } from '@/constants/pricing';
 
@@ -26,7 +28,11 @@ const faqs = [
 ];
 
 export const Pricing = () => {
+  const router = useRouter();
   const [isAnnual, setIsAnnual] = React.useState(true);
+
+  // Placeholder for user - should be replaced with real auth later
+  const user = { id: 'guest_user', email: '', name: '' };
 
   return (
     <section id="pricing" className="py-16 md:py-24 bg-white">
@@ -118,11 +124,15 @@ export const Pricing = () => {
                ))}
             </div>
             
-            <button 
-              className={`w-full py-4 md:py-5 rounded-sm font-black text-[10px] md:text-[12px] uppercase tracking-[0.2em] transition-all font-mono italic shadow-lg active:scale-95 bg-[#6C3CE1] text-[#FFFFFF]`}
-            >
-               START 7-DAY TRIAL
-            </button>
+            <PaymentButton
+              planId={isAnnual ? "pro_annual" : "pro_monthly"}
+              label={`START 7-DAY TRIAL → then ${isAnnual ? '₹499/yr' : '₹59/mo'}`}
+              amount={isAnnual ? 499 : 59}
+              userId={user.id}
+              email={user.email}
+              name={user.name}
+              onSuccess={() => router.push('/dashboard?upgraded=true')}
+            />
           </motion.div>
 
           {/* PREMIUM CARD */}
@@ -166,11 +176,15 @@ export const Pricing = () => {
                ))}
             </div>
             
-            <button 
-              className={`w-full py-4 md:py-5 rounded-sm font-black text-[10px] md:text-[12px] uppercase tracking-[0.2em] transition-all font-mono italic shadow-lg active:scale-95 bg-[#FF6B35] text-[#FFFFFF] hover:shadow-[0_0_50px_rgba(255,107,53,0.3)]`}
-            >
-               START 7-DAY TRIAL
-            </button>
+            <PaymentButton
+              planId="premium_annual"
+              label="GET PREMIUM → ₹999/yr"
+              amount={999}
+              userId={user.id}
+              email={user.email}
+              name={user.name}
+              onSuccess={() => router.push('/dashboard?upgraded=true')}
+            />
           </motion.div>
         </div>
 
